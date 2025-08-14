@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Al-azmeh — Unified Platform</title>
+  <style>
+    :root{
+      /* Brand palette (from image brief) */
+      --primary: rgb(235,184,183);   /* soft rose */
+      --secondary: rgb(42,67,108);   /* deep navy */
+      --accent: rgb(42,68,110);      /* slightly lighter navy */
+      --ink: #1b2330;                /* text */
+      --muted: #8793a2;              /* secondary text */
+      --bg: #fffefe;                 /* near-white background */
+      --card: #ffffff;               /* card surface */
+      --ring: rgba(42,67,108,.25);
+      --success: #1aa37a;
+      --warning: #e07b00;
+      --danger: #d33f49;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font: 15px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--ink);
+      background:linear-gradient(180deg, rgba(235,184,183,.15), transparent 220px), var(--bg);
+    }
+
+    /* ====== Topbar / Nav ====== */
+    header{
+      position:sticky; top:0; z-index:50;
+      background: linear-gradient(180deg, var(--secondary), var(--accent));
+      color:#fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    }
+    .wrap{ max-width:1200px; margin-inline:auto; padding: 0 16px; }
+    .topbar{ display:flex; align-items:center; gap:14px; padding:14px 0; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; }
+    .brand .mark{ width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:var(--primary); color:var(--secondary); font-weight:900; }
+    .brand .name{ font-size:18px; }
+    nav{ margin-left:auto; display:flex; flex-wrap:wrap; gap:6px; }
+    .tab{
+      appearance:none; border:0; background:transparent; color:#fff; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:600; opacity:.92;
+    }
+    .tab[aria-current="page"], .tab:hover{ background: rgba(255,255,255,.12); }
+    .cta{ margin-left:8px; background:var(--primary); color:var(--secondary); box-shadow:0 6px 16px rgba(0,0,0,.12); }
+
+    /* ====== Layout ====== */
+    main{ padding: 26px 0 60px; }
+    .grid{ display:grid; gap:16px; }
+    .two{ grid-template-columns: 1.4fr 1fr; }
+    .three{ grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 920px){ .two,.three{ grid-template-columns:1fr; } nav{ display:none; } }
+
+    /* ====== Cards ====== */
+    .card{ background:var(--card); border-radius:16px; padding:18px; box-shadow: 0 10px 30px rgba(42,67,108,.08); border:1px solid rgba(42,67,108,.08); }
+    .card h3{ margin:0 0 10px; color:var(--secondary); font-size:18px; }
+    .muted{ color:var(--muted); }
+
+    /* ====== Buttons, inputs ====== */
+    .btn{ appearance:none; border:0; background:var(--secondary); color:#fff; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; box-shadow:0 6px 20px var(--ring); }
+    .btn.ghost{ background:transparent; color:var(--secondary); border:2px solid var(--secondary); }
+    .btn.pill{ border-radius:999px; }
+    .btn.rose{ background:var(--primary); color:var(--secondary); }
+    .btn.success{ background:var(--success); }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    label{ display:block; font-weight:600; margin:.2rem 0 .35rem; color:var(--secondary); }
+    input, select, textarea{
+      width:100%; padding:11px 12px; border-radius:12px; border:1px solid rgba(42,67,108,.22); background:#fff; outline: none;
+      box-shadow: 0 0 0 0 var(--ring);
+    }
+    input:focus, select:focus, textarea:focus{ box-shadow: 0 0 0 4px var(--ring); }
+
+    /* ====== Hero ====== */
+    .hero{ background: linear-gradient(180deg, rgba(42,67,108,.07), transparent 60%), radial-gradient(800px 360px at 80% -60%, rgba(235,184,183,.45), transparent 60%); border-radius:22px; padding:28px; display:grid; gap:10px; }
+    .hero h1{ margin:0; font-size:clamp(24px, 2.4vw + 12px, 40px); color:var(--secondary); }
+    .hero p{ margin:0; color:#2c3b52; }
+
+    /* ====== Badges & chips ====== */
+    .chip{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background: rgba(235,184,183,.25); color:var(--secondary); font-weight:700; }
+
+    /* ====== Sections visibility (SPA) ====== */
+    .page{ display:none; }
+    .page.active{ display:block; }
+
+    /* ====== Tables ====== */
+    table{ width:100%; border-collapse:collapse; }
+    th,td{ padding:10px 8px; border-bottom:1px solid rgba(42,67,108,.12); text-align:left; }
+    th{ color:var(--secondary); font-size:13px; text-transform:uppercase; letter-spacing:.4px; }
+
+    /* ====== QR Stub ====== */
+    .qr{ width:140px; height:140px; background: repeating-linear-gradient(45deg,#000 0 6px,#fff 6px 12px); border-radius:8px; border:6px solid #000; }
+
+    /* ====== Footer ====== */
+    footer{ padding:30px 0; color:#5b6574; text-align:center; }
+
+    /* small helpers */
+    .space{ height:16px; }
+    .right{ margin-left:auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div class="brand" role="img" aria-label="Al-azmeh logo">
+        <div class="mark">Az</div>
+        <div class="name">Al-azmeh</div>
+      </div>
+      <nav aria-label="Primary">
+        <button class="tab" data-target="home" aria-current="page">Home</button>
+        <button class="tab" data-target="market">Marketplace</button>
+        <button class="tab" data-target="learn">Learning</button>
+        <button class="tab" data-target="jobs">Jobs</button>
+        <button class="tab" data-target="funding">Funding</button>
+        <button class="tab" data-target="payments">Payments</button>
+        <button class="tab" data-target="wallet">Wallet</button>
+        <button class="tab" data-target="biometric">Biometric</button>
+        <button class="tab" data-target="ussd">USSD</button>
+        <button class="tab" data-target="profile" class="right">Profile</button>
+      </nav>
+      <button class="tab cta pill" data-target="payments">Open App</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HOME -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <div class="row" style="gap:8px; flex-wrap:wrap; align-items:center">
+          <span class="chip">All-in-one platform</span>
+          <span class="chip" style="background:rgba(42,67,108,.12); color:var(--accent)">App + Payments</span>
+        </div>
+        <h1>Empowering township entrepreneurs with tools, skills, markets — and seamless payments — in one place.</h1>
+        <p>Welcome to <strong>Al-azmeh</strong>. Explore the marketplace, access learning & funding, and move money instantly with our integrated wallet, QR, USSD and biometric security.</p>
+        <div class="space"></div>
+        <div class="row">
+          <button class="btn rose pill" data-target="market">Explore Marketplace</button>
+          <button class="btn pill" data-target="payments">Go to Payments</button>
+          <button class="btn ghost pill" data-target="funding">Find Funding</button>
+        </div>
+      </div>
+      <div class="space"></div>
+      <div class="grid three">
+        <div class="card"><h3>Offline-first</h3><p class="muted">Works great on low data, plus USSD access for zero-data actions.</p></div>
+        <div class="card"><h3>Secure by design</h3><p class="muted">Device biometrics + 2FA + per-transaction PIN.</p></div>
+        <div class="card"><h3>Community growth</h3><p class="muted">Skills, jobs and supply links to grow local value chains.</p></div>
+      </div>
+    </section>
+
+    <!-- MARKETPLACE (demo) -->
+    <section id="market" class="page">
+      <div class="grid two">
+        <div class="card">
+          <h3>Local Marketplace</h3>
+          <p class="muted">Sample items from nearby suppliers.</p>
+          <div class="space"></div>
+          <table>
+            <thead><tr><th>Item</th><th>Supplier</th><th>Price</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>Maize Meal (50kg)</td><td>Soweto Milling Co‑op</td><td>R 320.00</td><td><button class="btn rose small">Add</button></td></tr>
+              <tr><td>Vegetable Box</td><td>Thembisa Farms</td><td>R 150.00</td><td><button class="btn rose small">Add</button></td></tr>
+              <tr><td>Handmade Soaps</td><td>Vaal Women Collective</td><td>R 45.00</td><td><button class="btn rose small">Add</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3>Cart</h3>
+          <p class="muted">Connected to Al-azmeh Payments for checkout.</p>
+          <div id="cartEmpty" class="muted">Your cart is empty.</div>
+          <div id="cartList" style="display:none"></div>
+          <div class="row" style="justify-content:space-between; margin-top:12px">
+            <strong>Total: <span id="cartTotal">R 0.00</span></strong>
+            <button class="btn" data-target="payments">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARNING (stub) -->
+    <section id="learn" class="page">
+      <div class="grid two">
+        <div class="card">
+          <h3>Courses</h3>
+          <ul class="muted">
+            <li>Retail Basics for Spaza Owners (6 weeks)</li>
+            <li>Electrical Installations Level 2 (12 weeks)</li>
+            <li>Digital Skills: WhatsApp Business (2 weeks)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>My Progress</h3>
+          <p class="muted">Sign in to track progress, quizzes and certificates.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOBS (stub) -->
+    <section id="jobs" class="page">
+      <div class="card">
+        <h3>Opportunities</h3>
+        <table>
+          <thead><tr><th>Role</th><th>Company</th><th>Location</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Assistant Electrician</td><td>eKhaya Energy</td><td>Vosloorus</td><td><button class="btn rose small">Apply</button></td></tr>
+            <tr><td>Shop Manager</td><td>Phola Fresh</td><td>Soweto</td><td><button class="btn rose small">Apply</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- FUNDING (merged highlights) -->
+    <section id="funding" class="page">
+      <div class="grid three">
+        <div class="card"><h3>NYDA Grant</h3><p class="muted">Up to R50,000 for youth‑owned startups. Prepare a business plan and ID.</p><button class="btn small">Start Application</button></div>
+        <div class="card"><h3>SEDA Support</h3><p class="muted">Mentorship, market access and training for SMEs nationwide.</p><button class="btn small">Request Support</button></div>
+        <div class="card"><h3>Skills Funding</h3><p class="muted">Learnerships for staff development (12–24 months).</p><button class="btn small">See Programs</button></div>
+      </div>
+    </section>
+
+    <!-- PAYMENTS (from payment system, expanded) -->
+    <section id="payments" class="page">
+      <div class="grid two">
+        <div class="card">
+          <h3>Quick Actions</h3>
+          <div class="row">
+            <button class="btn pill" onclick="sendMoney()">Send Money</button>
+            <button class="btn pill rose" onclick="requestMoney()">Request</button>
+            <button class="btn pill ghost" onclick="payBill()">Pay Bill</button>
+          </div>
+          <div class="space"></div>
+          <div class="grid three">
+            <div class="card"><div class="muted">Available</div><div style="font-size:24px; font-weight:800">R <span id="bal">2,450.00</span></div></div>
+            <div class="card"><div class="muted">This Month Spent</div><div style="font-size:24px; font-weight:800">R <span id="spent">1,280.00</span></div></div>
+            <div class="card"><div class="muted">Savings</div><div style="font-size:24px; font-weight:800">R 600.00</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>My QR Code</h3>
+          <p class="muted">Customers can scan to pay you.</p>
+          <div class="row" style="align-items:center; gap:16px">
+            <div class="qr" aria-label="QR placeholder"></div>
+            <div>
+              <div><strong>@az</strong>/<span id="handle">lungile-shop</span></div>
+              <button class="btn small" onclick="downloadQR()">Download QR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space"></div>
+      <div class="card">
+        <h3>Recent Activity</h3>
+        <table id="txTable">
+          <thead><tr><th>Date</th><th>Type</th><th>Details</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- WALLET / ACCOUNTS (from payment system) -->
+    <section id="wallet" class="page">
+      <div class="grid two">
+        <div class="card">
+          <h3>Link Bank</h3>
+          <label>Bank</label>
+          <select id="bank"><option value="">Select…</option><option>Standard Bank</option><option>FNB</option><option>ABSA</option><option>Nedbank</option></select>
+          <label>Account Number</label>
+          <input id="acct" placeholder="e.g. 1234567890" />
+          <label>Account Name</label>
+          <input id="acctname" placeholder="Auto‑filled on verify" readonly />
+          <div class="space"></div>
+          <button class="btn" onclick="verifyBank()">Verify & Link</button>
+        </div>
+        <div class="card">
+          <h3>Link Crypto Wallet</h3>
+          <label>Wallet Type</label>
+          <select id="wtype"><option value="">Select…</option><option>MetaMask</option><option>Trust Wallet</option><option>Ledger</option></select>
+          <label>Address</label>
+          <input id="waddr" placeholder="0x…" />
+          <div class="space"></div>
+          <button class="btn ghost" onclick="linkWallet()">Link Wallet</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIOMETRIC (from payment system) -->
+    <section id="biometric" class="page">
+      <div class="grid two">
+        <div class="card">
+          <h3>Fingerprint</h3>
+          <p class="muted">Simulated registration for demo.</p>
+          <div id="fpsensor" class="card" style="display:grid; place-items:center; height:140px; font-size:40px;">👆</div>
+          <div style="background:#eef2f7; border-radius:8px; overflow:hidden; height:8px; margin:10px 0"><div id="fpprog" style="height:100%; width:0%; background:var(--accent);"></div></div>
+          <button class="btn" onclick="startFP()">Start</button>
+        </div>
+        <div class="card">
+          <h3>Face ID</h3>
+          <video id="video" playsinline style="width:100%; border-radius:12px; background:#000; aspect-ratio:16/9"></video>
+          <div class="space"></div>
+          <div class="row"><button class="btn" id="camBtn" onclick="toggleCam()">Start Camera</button><button class="btn ghost" onclick="completeFace()">Complete</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- USSD (from payment system) -->
+    <section id="ussd" class="page">
+      <div class="card">
+        <h3>USSD Setup</h3>
+        <div class="grid two">
+          <div>
+            <label>Mobile Number</label>
+            <input id="msisdn" placeholder="e.g. 072 123 4567" />
+            <label>Network</label>
+            <select id="mno"><option>MTN</option><option>Vodacom</option><option>Telkom</option><option>Cell C</option></select>
+            <div class="space"></div>
+            <button class="btn" onclick="linkUSSD()">Link Number</button>
+          </div>
+          <div>
+            <div id="ussdSim" class="card" style="background:#0a0a0a; color:#0df10d; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+              <div>Welcome to Al-azmeh</div>
+              <div>1. Send Money</div>
+              <div>2. Pay Bill</div>
+              <div>3. Balance</div>
+              <div>4. More</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILE (from payment system + extras) -->
+    <section id="profile" class="page">
+      <div class="grid two">
+        <div class="card">
+          <h3>My Profile</h3>
+          <label>Username</label><input id="username" placeholder="choose a handle" />
+          <label>Full Name</label><input id="fullname" placeholder="Your name" />
+          <label>Email</label><input id="email" type="email" placeholder="you@example.com" />
+          <label>Country</label>
+          <select id="country"><option value="">Select…</option><option value="ZA">South Africa</option><option value="NG">Nigeria</option><option value="KE">Kenya</option><option value="GH">Ghana</option></select>
+          <div class="space"></div>
+          <label><input type="checkbox" id="twofa" /> Enable 2‑factor authentication</label>
+          <div class="space"></div>
+          <button class="btn" onclick="saveProfile()">Save</button>
+        </div>
+        <div class="card">
+          <h3>Branding</h3>
+          <p class="muted">App colors are applied from your brand brief.</p>
+          <div class="row" style="gap:14px">
+            <div class="card" style="background:var(--primary); color:var(--secondary);">Primary<br/><small>rgb(235,184,183)</small></div>
+            <div class="card" style="background:var(--secondary); color:#fff">Secondary<br/><small>rgb(42,67,108)</small></div>
+            <div class="card" style="background:var(--accent); color:#fff">Accent<br/><small>rgb(42,68,110)</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="wrap">
+    <div>© <span id="year"></span> Al-azmeh — Built for township economies.
+    </div>
+  </footer>
+
+  <script>
+    const $ = (q, ctx=document) => ctx.querySelector(q);
+    const $$ = (q, ctx=document) => Array.from(ctx.querySelectorAll(q));
+
+    // ======= SPA NAV =======
+    function show(page){
+      $$('.page').forEach(p=>p.classList.remove('active'));
+      $('#' + page).classList.add('active');
+      $$('.tab').forEach(t=>{
+        t.removeAttribute('aria-current');
+        if(t.dataset.target === page) t.setAttribute('aria-current','page');
+      });
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+    $$('nav .tab, .cta, .btn[data-target], .rose[data-target]').forEach(b=>{
+      b.addEventListener('click', e=>{ const t = e.currentTarget.dataset.target; if(t){ show(t); }});
+    });
+
+    // Default year
+    $('#year').textContent = new Date().getFullYear();
+
+    // ======= CART DEMO =======
+    const cart = [];
+    $$('#market .btn.rose.small').forEach((btn, i)=>{
+      btn.addEventListener('click', ()=>{
+        const rows = $$('#market tbody tr');
+        const r = rows[i];
+        const item = r.children[0].textContent;
+        const price = parseFloat(r.children[2].textContent.replace(/[^0-9.]/g,'')).toFixed(2);
+        cart.push({item, price: Number(price)});
+        renderCart();
+      });
+    });
+    function renderCart(){
+      const list = $('#cartList');
+      if(!cart.length){ $('#cartEmpty').style.display='block'; list.style.display='none'; $('#cartTotal').textContent='R 0.00'; return; }
+      $('#cartEmpty').style.display='none'; list.style.display='block';
+      list.innerHTML = cart.map((c,idx)=>`<div class="row" style="justify-content:space-between; margin:8px 0"><div>${c.item}</div><strong>R ${c.price.toFixed(2)}</strong><button class="btn ghost small" onclick="removeFromCart(${idx})">Remove</button></div>`).join('');
+      const total = cart.reduce((n,c)=>n+c.price,0);
+      $('#cartTotal').textContent = 'R ' + total.toFixed(2);
+    }
+    function removeFromCart(i){ cart.splice(i,1); renderCart(); }
+
+    // ======= PAYMENTS DEMO =======
+    const txBody = $('#txTable tbody');
+    const tx = [
+      {d:'2025-08-11', t:'Received', k:'QR from @khumo', a:+150.00, s:'Success'},
+      {d:'2025-08-10', t:'Sent', k:'To @thembi', a:-200.00, s:'Success'},
+      {d:'2025-08-05', t:'Bill', k:'City of JHB Utilities', a:-480.00, s:'Success'},
+    ];
+    function paintTx(){
+      txBody.innerHTML = tx.map(row=>`<tr><td>${row.d}</td><td>${row.t}</td><td>${row.k}</td><td>${row.a<0?'-':''}R ${Math.abs(row.a).toFixed(2)}</td><td>${row.s}</td></tr>`).join('');
+    }
+    paintTx();
+
+    function mutateBalance(delta){
+      const v = parseFloat($('#bal').textContent.replace(/[^0-9.]/g,'') );
+      const nv = Math.max(0, v + delta);
+      $('#bal').textContent = nv.toFixed(2);
+    }
+
+    function sendMoney(){
+      const to = prompt('Send to @handle or phone:');
+      const amt = Number(prompt('Amount (R):'));
+      if(!to || !amt) return;
+      tx.unshift({d:new Date().toISOString().slice(0,10), t:'Sent', k:`To ${to}`, a:-amt, s:'Success'});
+      paintTx(); mutateBalance(-amt); alert('Sent!');
+    }
+    function requestMoney(){
+      const from = prompt('Request from @handle or phone:');
+      const amt = Number(prompt('Amount (R):'));
+      if(!from || !amt) return;
+      alert(`Request link created for ${from}: R ${amt.toFixed(2)}\nShare your QR to get paid.`);
+    }
+    function payBill(){
+      const ref = prompt('Bill reference:');
+      const amt = Number(prompt('Amount (R):'));
+      if(!ref || !amt) return;
+      tx.unshift({d:new Date().toISOString().slice(0,10), t:'Bill', k:ref, a:-amt, s:'Success'});
+      paintTx(); mutateBalance(-amt); alert('Bill paid');
+    }
+
+    function downloadQR(){
+      // Simple placeholder export
+      const canvas = document.createElement('canvas');
+      canvas.width = 400; canvas.height = 400;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#fff'; ctx.fillRect(0,0,400,400);
+      ctx.fillStyle = '#000';
+      for(let y=0;y<20;y++) for(let x=0;x<20;x++) if(Math.random()>.5){ ctx.fillRect(x*20,y*20,18,18); }
+      ctx.fillStyle = '#000'; ctx.fillRect(20,20,80,80); ctx.fillRect(300,20,80,80); ctx.fillRect(20,300,80,80);
+      const a = document.createElement('a'); a.download = 'al-azmeh-qr.png'; a.href = canvas.toDataURL('image/png'); a.click();
+    }
+
+    // ======= ACCOUNTS =======
+    function verifyBank(){
+      const num = $('#acct').value.trim();
+      if(num.length < 6){ alert('Enter a valid account number'); return; }
+      $('#acctname').value = 'Verified Account Holder';
+      alert('Bank account linked');
+    }
+    function linkWallet(){
+      if(!$('#wtype').value || !$('#waddr').value) return alert('Complete wallet details');
+      alert('Crypto wallet linked');
+    }
+
+    // ======= BIOMETRIC =======
+    function startFP(){
+      const bar = $('#fpprog'); let p=0; bar.style.width='0%';
+      const timer = setInterval(()=>{ p+=5; bar.style.width=p+'%'; if(p>=100){ clearInterval(timer); $('#fpsensor').textContent='✅'; alert('Fingerprint registered'); }}, 90);
+    }
+    let stream=null;
+    async function toggleCam(){
+      const v = $('#video');
+      if(!stream){
+        try{ stream = await navigator.mediaDevices.getUserMedia({video:true}); v.srcObject=stream; await v.play(); $('#camBtn').textContent='Stop Camera'; }
+        catch(e){ alert('Camera access denied'); }
+      } else {
+        stream.getTracks().forEach(t=>t.stop()); stream=null; v.srcObject=null; $('#camBtn').textContent='Start Camera';
+      }
+    }
+    function completeFace(){ alert('Face ID registered'); }
+
+    // ======= USSD =======
+    function linkUSSD(){
+      const n = $('#msisdn').value.trim(); if(!n){ alert('Enter your number'); return; }
+      alert('USSD linked. Dial *723# to access Al-azmeh.');
+    }
+
+    // ======= PROFILE =======
+    function saveProfile(){ alert('Profile saved'); const u = $('#username').value.trim(); if(u) $('#handle').textContent = u; }
+
+  </script>
+</body>
+</html>
