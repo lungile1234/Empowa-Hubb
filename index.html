@@ -18,6 +18,11 @@
       --success: #1aa37a;
       --warning: #e07b00;
       --danger: #d33f49;
+      --health: #e67e22;
+      --agri: #27ae60;
+      --transport: #3498db;
+      --finance: #9b59b6;
+      --community: #f1c40f;
     }
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
@@ -35,6 +40,1226 @@
       color:#fff;
       box-shadow: 0 10px 30px rgba(0,0,0,.12);
     }
+    .wrap{ max-width:1200px; margin-inline:auto; padding: 0 16px; }
+    .topbar{ display:flex; align-items:center; gap:14px; padding:14px 0; }
+    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; }
+    .brand .mark{ width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:var(--primary); color:var(--secondary); font-weight:900; }
+    .brand .name{ font-size:18px; }
+    nav{ margin-left:auto; display:flex; flex-wrap:wrap; gap:6px; }
+    .tab{
+      appearance:none; border:0; background:transparent; color:#fff; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:600; opacity:.92;
+    }
+    .tab[aria-current="page"], .tab:hover{ background: rgba(255,255,255,.12); }
+    .cta{ margin-left:8px; background:var(--primary); color:var(--secondary); box-shadow:0 6px 16px rgba(0,0,0,.12); }
+
+    /* ====== Layout ====== */
+    main{ padding: 26px 0 60px; }
+    .grid{ display:grid; gap:16px; }
+    .two{ grid-template-columns: 1.4fr 1fr; }
+    .three{ grid-template-columns: repeat(3, 1fr); }
+    .four{ grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 920px){ 
+      .two,.three,.four{ grid-template-columns:1fr; } 
+      nav { display:none; }
+      .mobile-menu-btn { display:block; }
+    }
+
+    /* ====== Cards ====== */
+    .card{ background:var(--card); border-radius:16px; padding:18px; box-shadow: 0 10px 30px rgba(42,67,108,.08); border:1px solid rgba(42,67,108,.08); }
+    .card h3{ margin:0 0 10px; color:var(--secondary); font-size:18px; }
+    .muted{ color:var(--muted); }
+
+    /* ====== Buttons, inputs ====== */
+    .btn{ appearance:none; border:0; background:var(--secondary); color:#fff; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; box-shadow:0 6px 20px var(--ring); }
+    .btn.ghost{ background:transparent; color:var(--secondary); border:2px solid var(--secondary); }
+    .btn.pill{ border-radius:999px; }
+    .btn.rose{ background:var(--primary); color:var(--secondary); }
+    .btn.success{ background:var(--success); }
+    .btn.health{ background:var(--health); }
+    .btn.agri{ background:var(--agri); }
+    .btn.transport{ background:var(--transport); }
+    .btn.finance{ background:var(--finance); }
+    .btn.community{ background:var(--community); color:#333; }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    label{ display:block; font-weight:600; margin:.2rem 0 .35rem; color:var(--secondary); }
+    input, select, textarea{
+      width:100%; padding:11px 12px; border-radius:12px; border:1px solid rgba(42,67,108,.22); background:#fff; outline: none;
+      box-shadow: 0 0 0 0 var(--ring);
+    }
+    input:focus, select:focus, textarea:focus{ box-shadow: 0 0 0 4px var(--ring); }
+
+    /* ====== Hero ====== */
+    .hero{ background: linear-gradient(180deg, rgba(42,67,108,.07), transparent 60%), radial-gradient(800px 360px at 80% -60%, rgba(235,184,183,.45), transparent 60%); border-radius:22px; padding:28px; display:grid; gap:10px; }
+    .hero h1{ margin:0; font-size:clamp(24px, 2.4vw + 12px, 40px); color:var(--secondary); }
+    .hero p{ margin:0; color:#2c3b52; }
+
+    /* ====== Badges & chips ====== */
+    .chip{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background: rgba(235,184,183,.25); color:var(--secondary); font-weight:700; }
+
+    /* ====== Sections visibility (SPA) ====== */
+    .page{ display:none; }
+    .page.active{ display:block; }
+
+    /* ====== Tables ====== */
+    table{ width:100%; border-collapse:collapse; }
+    th,td{ padding:10px 8px; border-bottom:1px solid rgba(42,67,108,.12); text-align:left; }
+    th{ color:var(--secondary); font-size:13px; text-transform:uppercase; letter-spacing:.4px; }
+
+    /* ====== QR Stub ====== */
+    .qr{ width:140px; height:140px; background: repeating-linear-gradient(45deg,#000 0 6px,#fff 6px 12px); border-radius:8px; border:6px solid #000; }
+
+    /* ====== Footer ====== */
+    footer{ padding:30px 0; color:#5b6574; text-align:center; }
+
+    /* small helpers */
+    .space{ height:16px; }
+    .right{ margin-left:auto; }
+    
+    /* Progress bars */
+    .progress{ height:12px; background:#eef2f7; border-radius:999px; overflow:hidden; margin:8px 0; }
+    .progress-bar{ height:100%; background:var(--success); border-radius:999px; }
+    
+    /* Modal */
+    .modal{ display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.7); z-index:100; align-items:center; justify-content:center; }
+    .modal.active{ display:flex; }
+    .modal-content{ background:#fff; border-radius:16px; padding:24px; max-width:500px; width:90%; max-height:90vh; overflow-y:auto; }
+    .modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+    .modal-close{ background:none; border:none; font-size:24px; cursor:pointer; }
+    
+    /* Category tags */
+    .tag{ display:inline-block; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:600; margin:2px; }
+    .tag-health{ background:rgba(230,126,34,.2); color:var(--health); }
+    .tag-agri{ background:rgba(39,174,96,.2); color:var(--agri); }
+    .tag-transport{ background:rgba(52,152,219,.2); color:var(--transport); }
+    .tag-finance{ background:rgba(155,89,182,.2); color:var(--finance); }
+    .tag-community{ background:rgba(241,196,15,.2); color:var(--community); }
+    
+    /* Loading spinner */
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top: 4px solid var(--secondary);
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Mobile menu */
+    .mobile-menu-btn {
+      display: none;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    @media (max-width: 920px) {
+      .mobile-menu-btn {
+        display: block;
+        margin-left: auto;
+      }
+      
+      nav {
+        position: fixed;
+        top: 62px;
+        left: 0;
+        right: 0;
+        background: var(--secondary);
+        flex-direction: column;
+        padding: 16px;
+        gap: 8px;
+        z-index: 100;
+        box-shadow: 0 10px 30px rgba(0,0,0,.2);
+        display: none;
+      }
+      
+      nav.active {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div class="brand" role="img" aria-label="Al-azmeh logo">
+        <div class="mark">Az</div>
+        <div class="name">EMPOWA HUB</div>
+      </div>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+      <nav aria-label="Primary" id="mainNav">
+        <button class="tab" data-target="home" aria-current="page">Home</button>
+        <button class="tab" data-target="market">Marketplace</button>
+        <button class="tab" data-target="learn">Learning</button>
+        <button class="tab" data-target="jobs">Jobs</button>
+        <button class="tab" data-target="funding">Funding</button>
+        <button class="tab" data-target="payments">Payments</button>
+        <button class="tab" data-target="wallet">Wallet</button>
+        <button class="tab" data-target="biometric">Biometric</button>
+        <button class="tab" data-target="ussd">USSD</button>
+        <button class="tab" data-target="momo">MoMo Life</button>
+        <button class="tab" data-target="profile" class="right">Profile</button>
+      </nav>
+      <button class="tab cta pill" data-target="payments">Open App</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HOME -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <div class="row" style="gap:8px; flex-wrap:wrap; align-items:center">
+          <span class="chip">All-in-one platform</span>
+          <span class="chip" style="background:rgba(42,67,108,.12); color:var(--accent)">App + Payments</span>
+          <span class="chip" style="background:rgba(230,126,34,.2); color:var(--health)">MoMo Life</span>
+        </div>
+        <h1>Empowering township entrepreneurs with tools, skills, markets and seamless payments in one place.</h1>
+        <p>Welcome to <strong>EMPOWA HUB</strong>. Explore the marketplace, access learning & funding, and move money instantly with our integrated wallet, QR, USSD and biometric security.</p>
+        <div class="space"></div>
+        <div class="row">
+          <button class="btn rose pill" data-target="market">Explore Marketplace</button>
+          <button class="btn pill" data-target="payments">Go to Payments</button>
+          <button class="btn ghost pill" data-target="funding">Find Funding</button>
+          <button class="btn health pill" data-target="momo">MoMo Life</button>
+        </div>
+      </div>
+      <div class="space"></div>
+      <div class="grid three">
+        <div class="card"><h3>Offline-first</h3><p class="muted">Works great on low data, plus USSD access for zero-data actions.</p></div>
+        <div class="card"><h3>Secure by design</h3><p class="muted">Device biometrics + 2FA + per-transaction PIN.</p></div>
+        <div class="card"><h3>Community growth</h3><p class="muted">Skills, jobs and supply links to grow local value chains.</p></div>
+      </div>
+      
+      <!-- MoMo Life Quick Overview -->
+      <div class="space"></div>
+      <h2>MoMo Everyday Life</h2>
+      <div class="grid four">
+        <div class="card" style="border-top:4px solid var(--health)">
+          <h3>🏥 Health Services</h3>
+          <p class="muted">Healthcare directory, medication orders, appointments</p>
+          <div class="progress"><div class="progress-bar" style="width:48%"></div></div>
+          <div>Health Savings: R2,400/R5,000</div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--agri)">
+          <h3>🌾 Agriculture</h3>
+          <p class="muted">Inputs marketplace, farmer tools, planting calendar</p>
+          <div class="muted">Agri Fund: R1,800 available</div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--transport)">
+          <h3>🚌 Transport</h3>
+          <p class="muted">Live routes, digital tickets, travel history</p>
+          <div class="muted">42 trips this month</div>
+        </div>
+        <div class="card" style="border-top:4px solid var(--community)">
+          <h3>🤝 Community</h3>
+          <p class="muted">Group wallets, stokvels, cooperatives</p>
+          <div class="muted">R370,000 total saved</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARKETPLACE -->
+    <section id="market" class="page">
+      <h2>Marketplace</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Local Marketplace</h3>
+          <p class="muted">Sample items from nearby suppliers.</p>
+          <div class="space"></div>
+          <table>
+            <thead><tr><th>Item</th><th>Supplier</th><th>Price</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>Maize Meal (50kg)</td><td>Soweto Milling Co‑op</td><td>R 320.00</td><td><button class="btn rose small">Add</button></td></tr>
+              <tr><td>Vegetable Box</td><td>Thembisa Farms</td><td>R 150.00</td><td><button class="btn rose small">Add</button></td></tr>
+              <tr><td>Handmade Soaps</td><td>Vaal Women Collective</td><td>R 45.00</td><td><button class="btn rose small">Add</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <h3>Cart</h3>
+          <p class="muted">Connected to EMPOWA Payments for checkout.</p>
+          <div id="cartEmpty" class="muted">Your cart is empty.</div>
+          <div id="cartList" style="display:none"></div>
+          <div class="row" style="justify-content:space-between; margin-top:12px">
+            <strong>Total: <span id="cartTotal">R 0.00</span></strong>
+            <button class="btn" data-target="payments">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARNING -->
+    <section id="learn" class="page">
+      <h2>Skills Development</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Courses</h3>
+          <ul>
+            <li><strong>Retail Basics for Spaza Owners</strong> (6 weeks) <span class="muted">- Learn inventory management, customer service, and financial basics</span></li>
+            <li><strong>Electrical Installations Level 2</strong> (12 weeks) <span class="muted">- Certified training for electricians</span></li>
+            <li><strong>Digital Skills: WhatsApp Business</strong> (2 weeks) <span class="muted">- Leverage WhatsApp for customer engagement</span></li>
+            <li><strong>Agriculture Fundamentals</strong> (8 weeks) <span class="muted">- Modern farming techniques for smallholders</span></li>
+            <li><strong>Basic Bookkeeping</strong> (4 weeks) <span class="muted">- Manage your business finances effectively</span></li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>My Progress</h3>
+          <p class="muted">Sign in to track progress, quizzes and certificates.</p>
+          <div class="space"></div>
+          <div class="card">
+            <h4>Retail Basics for Spaza Owners</h4>
+            <div class="progress"><div class="progress-bar" style="width:65%"></div></div>
+            <p class="muted">65% completed</p>
+          </div>
+          <div class="space"></div>
+          <div class="card">
+            <h4>Digital Skills: WhatsApp Business</h4>
+            <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
+            <p class="muted">Completed! <button class="btn small">Download Certificate</button></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOBS -->
+    <section id="jobs" class="page">
+      <h2>Job Opportunities</h2>
+      <div class="card">
+        <h3>Available Positions</h3>
+        <table>
+          <thead><tr><th>Role</th><th>Company</th><th>Location</th><th>Salary</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Assistant Electrician</td><td>eKhaya Energy</td><td>Vosloorus</td><td>R8,500 - R10,000</td><td><button class="btn rose small">Apply</button></td></tr>
+            <tr><td>Shop Manager</td><td>Phola Fresh</td><td>Soweto</td><td>R12,000 - R15,000</td><td><button class="btn rose small">Apply</button></td></tr>
+            <tr><td>Agriculture Assistant</td><td>GreenFingers Co-op</td><td>Alexandra</td><td>R7,000 - R9,000</td><td><button class="btn rose small">Apply</button></td></tr>
+            <tr><td>Sales Representative</td><td>Township Brands</td><td>Khayelitsha</td><td>R9,000 + commission</td><td><button class="btn rose small">Apply</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="space"></div>
+      <div class="grid two">
+        <div class="card">
+          <h3>Post a Job</h3>
+          <p class="muted">Are you hiring? Post your opportunity to our platform.</p>
+          <div class="space"></div>
+          <button class="btn">Post a Job</button>
+        </div>
+        <div class="card">
+          <h3>Career Resources</h3>
+          <p class="muted">Resume templates, interview tips, and career guidance.</p>
+          <div class="space"></div>
+          <button class="btn ghost">Explore Resources</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUNDING -->
+    <section id="funding" class="page">
+      <h2>Funding Opportunities</h2>
+      <div class="grid three">
+        <div class="card">
+          <h3>NYDA Grant</h3>
+          <p class="muted">Up to R50,000 for youth‑owned startups. Prepare a business plan and ID.</p>
+          <div class="space"></div>
+          <div class="chip" style="background:rgba(26,163,122,0.2); color:var(--success)">Deadline: 30 June 2025</div>
+          <div class="space"></div>
+          <button class="btn small">Start Application</button>
+        </div>
+        <div class="card">
+          <h3>SEDA Support</h3>
+          <p class="muted">Mentorship, market access and training for SMEs nationwide.</p>
+          <div class="space"></div>
+          <div class="chip" style="background:rgba(42,67,108,0.1); color:var(--secondary)">Ongoing</div>
+          <div class="space"></div>
+          <button class="btn small">Request Support</button>
+        </div>
+        <div class="card">
+          <h3>Skills Funding</h3>
+          <p class="muted">Learnerships for staff development (12–24 months).</p>
+          <div class="space"></div>
+          <div class="chip" style="background:rgba(235,184,183,0.3); color:var(--secondary)">Next intake: July 2025</div>
+          <div class="space"></div>
+          <button class="btn small">See Programs</button>
+        </div>
+      </div>
+      
+      <div class="space"></div>
+      
+      <div class="grid two">
+        <div class="card">
+          <h3>Application Progress</h3>
+          <p class="muted">Track your funding applications</p>
+          <div class="space"></div>
+          <div class="card">
+            <h4>NYDA Grant Application</h4>
+            <div class="progress"><div class="progress-bar" style="width:40%"></div></div>
+            <p class="muted">Documents submitted - under review</p>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Funding Resources</h3>
+          <p class="muted">Tools to help with your applications</p>
+          <ul>
+            <li>Business Plan Template</li>
+            <li>Budget Worksheet</li>
+            <li>Grant Writing Guide</li>
+            <li>Pitch Deck Examples</li>
+          </ul>
+          <div class="space"></div>
+          <button class="btn ghost">Download Resources</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAYMENTS -->
+    <section id="payments" class="page">
+      <h2>Payments</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Quick Actions</h3>
+          <div class="row">
+            <button class="btn pill" onclick="sendMoney()">Send Money</button>
+            <button class="btn pill rose" onclick="requestMoney()">Request</button>
+            <button class="btn pill ghost" onclick="payBill()">Pay Bill</button>
+            <button class="btn pill health" onclick="momoPayment()">MoMo Pay</button>
+          </div>
+          <div class="space"></div>
+          <div class="grid three">
+            <div class="card"><div class="muted">Available</div><div style="font-size:24px; font-weight:800">R <span id="bal">12,580.50</span></div></div>
+            <div class="card"><div class="muted">This Month Spent</div><div style="font-size:24px; font-weight:800">R <span id="spent">1,280.00</span></div></div>
+            <div class="card"><div class="muted">Savings</div><div style="font-size:24px; font-weight:800">R 600.00</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>My QR Code</h3>
+          <p class="muted">Customers can scan to pay you.</p>
+          <div class="row" style="align-items:center; gap:16px">
+            <div class="qr" aria-label="QR placeholder"></div>
+            <div>
+              <div><strong>@az</strong>/<span id="handle">lungile-shop</span></div>
+              <button class="btn small" onclick="downloadQR()">Download QR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space"></div>
+      <div class="card">
+        <h3>Recent Activity</h3>
+        <table id="txTable">
+          <thead><tr><th>Date</th><th>Type</th><th>Details</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>2025-05-15</td><td>Received</td><td>From: S. Mthembu</td><td>R 250.00</td><td>Completed</td></tr>
+            <tr><td>2025-05-14</td><td>Purchase</td><td>Spaza supplies</td><td>R 180.50</td><td>Completed</td></tr>
+            <tr><td>2025-05-12</td><td>Transfer</td><td>To: Mom</td><td>R 500.00</td><td>Completed</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- WALLET -->
+    <section id="wallet" class="page">
+      <h2>Wallet & Accounts</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Link Bank Account</h3>
+          <label>Bank</label>
+          <select id="bank">
+            <option value="">Select…</option>
+            <option>Standard Bank</option>
+            <option>FNB</option>
+            <option>ABSA</option>
+            <option>Nedbank</option>
+            <option>Capitec</option>
+          </select>
+          <label>Account Number</label>
+          <input id="acct" placeholder="e.g. 1234567890" />
+          <label>Account Name</label>
+          <input id="acctname" placeholder="Auto‑filled on verify" readonly />
+          <div class="space"></div>
+          <button class="btn" onclick="verifyBank()">Verify & Link</button>
+        </div>
+        <div class="card">
+          <h3>Link Crypto Wallet</h3>
+          <label>Wallet Type</label>
+          <select id="wtype">
+            <option value="">Select…</option>
+            <option>MetaMask</option>
+            <option>Trust Wallet</option>
+            <option>Ledger</option>
+            <option>Coinbase Wallet</option>
+          </select>
+          <label>Address</label>
+          <input id="waddr" placeholder="0x…" />
+          <div class="space"></div>
+          <button class="btn ghost" onclick="linkWallet()">Link Wallet</button>
+        </div>
+      </div>
+      
+      <div class="space"></div>
+      
+      <div class="card">
+        <h3>Connected Accounts</h3>
+        <table>
+          <thead><tr><th>Account</th><th>Type</th><th>Status</th><th>Balance</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Standard Bank ****4582</td><td>Bank Account</td><td><span class="tag" style="background:rgba(26,163,122,0.2); color:var(--success)">Connected</span></td><td>R 4,582.75</td><td><button class="btn small ghost">Manage</button></td></tr>
+            <tr><td>0x7a3B...E5f2</td><td>MetaMask</td><td><span class="tag" style="background:rgba(26,163,122,0.2); color:var(--success)">Connected</span></td><td>0.42 ETH</td><td><button class="btn small ghost">Manage</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BIOMETRIC -->
+    <section id="biometric" class="page">
+      <h2>Biometric Security</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Fingerprint</h3>
+          <p class="muted">Register your fingerprint for secure authentication.</p>
+          <div id="fpsensor" class="card" style="display:grid; place-items:center; height:140px; font-size:40px; cursor:pointer;" onclick="startFP()">👆</div>
+          <div style="background:#eef2f7; border-radius:8px; overflow:hidden; height:8px; margin:10px 0">
+            <div id="fpprog" style="height:100%; width:0%; background:var(--accent);"></div>
+          </div>
+          <button class="btn" onclick="startFP()">Register Fingerprint</button>
+        </div>
+        <div class="card">
+          <h3>Face ID</h3>
+          <p class="muted">Register your face for quick and secure access.</p>
+          <div id="video" class="card" style="display:grid; place-items:center; height:140px; font-size:40px; cursor:pointer;" onclick="toggleCam()">📷</div>
+          <div class="space"></div>
+          <div class="row">
+            <button class="btn" id="camBtn" onclick="toggleCam()">Start Camera</button>
+            <button class="btn ghost" onclick="completeFace()">Complete Registration</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="space"></div>
+      
+      <div class="card">
+        <h3>Security Settings</h3>
+        <div class="row">
+          <label><input type="checkbox" checked /> Enable biometric login</label>
+          <label><input type="checkbox" checked /> Require biometric for payments</label>
+          <label><input type="checkbox" /> Require biometric for login</label>
+        </div>
+        <div class="space"></div>
+        <button class="btn">Save Settings</button>
+      </div>
+    </section>
+
+    <!-- USSD -->
+    <section id="ussd" class="page">
+      <h2>USSD Services</h2>
+      <div class="card">
+        <h3>USSD Setup</h3>
+        <div class="grid two">
+          <div>
+            <label>Mobile Number</label>
+            <input id="msisdn" placeholder="e.g. 072 123 4567" value="072 123 4567" />
+            <label>Network</label>
+            <select id="mno">
+              <option>MTN</option>
+              <option>Vodacom</option>
+              <option>Telkom</option>
+              <option>Cell C</option>
+            </select>
+            <div class="space"></div>
+            <button class="btn" onclick="linkUSSD()">Link Number</button>
+          </div>
+          <div>
+            <div id="ussdSim" class="card" style="background:#0a0a0a; color:#0df10d; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; line-height:1.8;">
+              <div>Welcome to EMPOWA HUB USSD</div>
+              <div>1. Send Money</div>
+              <div>2. Pay Bill</div>
+              <div>3. Check Balance</div>
+              <div>4. Buy Airtime</div>
+              <div>5. My Profile</div>
+              <div>6. Help</div>
+              <div>0. Exit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="space"></div>
+      
+      <div class="grid three">
+        <div class="card">
+          <h3>Quick USSD Codes</h3>
+          <ul>
+            <li>*120*723# - Send Money</li>
+            <li>*120*321# - Check Balance</li>
+            <li>*120*426# - Buy Airtime</li>
+            <li>*120*555# - Customer Care</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>USSD History</h3>
+          <p class="muted">Recent USSD transactions</p>
+          <div class="space"></div>
+          <ul>
+            <li>15 May - Sent R250 to 072 555 1212</li>
+            <li>14 May - Bought R50 airtime</li>
+            <li>12 May - Checked balance</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>USSD Settings</h3>
+          <p class="muted">Configure your USSD preferences</p>
+          <div class="space"></div>
+          <label><input type="checkbox" checked /> Enable transaction confirmations</label>
+          <label><input type="checkbox" checked /> Show balance after transactions</label>
+          <label><input type="checkbox" /> Require PIN for all transactions</label>
+          <div class="space"></div>
+          <button class="btn">Save Settings</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOMO LIFE -->
+    <section id="momo" class="page">
+      <h2>MoMo Everyday Life</h2>
+      <div class="hero" style="background: linear-gradient(180deg, rgba(230,126,34,.07), transparent 60%), radial-gradient(800px 360px at 80% -60%, rgba(235,184,183,.45), transparent 60%);">
+        <h1>MoMo Everyday Life</h1>
+        <p>Access essential services for health, agriculture, transport, finance and community through our integrated MoMo platform.</p>
+        <div class="row">
+          <button class="btn health pill" onclick="showMomoSection('momo-health')">Health Services</button>
+          <button class="btn agri pill" onclick="showMomoSection('momo-agri')">Agriculture</button>
+          <button class="btn transport pill" onclick="showMomoSection('momo-transport')">Transport</button>
+          <button class="btn finance pill" onclick="showMomoSection('momo-finance')">Finance</button>
+          <button class="btn community pill" onclick="showMomoSection('momo-community')">Community</button>
+        </div>
+      </div>
+
+      <!-- Health Services -->
+      <div id="momo-health" class="momo-section">
+        <div class="space"></div>
+        <h3>🏥 Health Services</h3>
+        <div class="grid two">
+          <div class="card">
+            <h4>Healthcare Directory</h4>
+            <div class="muted">Find hospitals, clinics, pharmacies near you</div>
+            <div class="space"></div>
+            <div class="row">
+              <input placeholder="Search by name or specialty" style="flex:1" />
+              <button class="btn health">Search</button>
+            </div>
+            <div class="space"></div>
+            <table>
+              <thead><tr><th>Provider</th><th>Type</th><th>Distance</th><th></th></tr></thead>
+              <tbody>
+                <tr><td>Chris Hani Hospital</td><td>Hospital</td><td>2.3km</td><td><button class="btn health small">View</button></td></tr>
+                <tr><td>Soweto Clinic</td><td>Clinic</td><td>0.8km</td><td><button class="btn health small">View</button></td></tr>
+                <tr><td>Dischem Pharmacy</td><td>Pharmacy</td><td>1.5km</td><td><button class="btn health small">View</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h4>Quick Health Actions</h4>
+            <div class="row">
+              <button class="btn health" onclick="momoAction('orderMeds')">Order Medication</button>
+              <button class="btn health" onclick="momoAction('bookAppt')">Book Appointment</button>
+            </div>
+            <div class="space"></div>
+            <h4>Health Savings</h4>
+            <div class="muted">Goal: R5,000 for family health fund</div>
+            <div class="progress"><div class="progress-bar" style="width:48%"></div></div>
+            <div>R2,400 / R5,000 saved</div>
+            <div class="space"></div>
+            <button class="btn health" onclick="momoAction('addHealthFunds')">Add Funds</button>
+            
+            <div class="space"></div>
+            <h4>USSD Health Access</h4>
+            <div class="muted">Dial *120*4357# for health payments</div>
+            <div class="muted">SMS "HEALTH" to 40123</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agriculture -->
+      <div id="momo-agri" class="momo-section" style="display:none">
+        <div class="space"></div>
+        <h3>🌾 Agriculture Platform</h3>
+        <div class="grid two">
+          <div class="card">
+            <h4>Agricultural Inputs</h4>
+            <div class="row">
+              <select>
+                <option>All Categories</option>
+                <option>Seeds</option>
+                <option>Fertilizers</option>
+                <option>Tools</option>
+                <option>Equipment</option>
+              </select>
+              <button class="btn agri">Filter</button>
+            </div>
+            <div class="space"></div>
+            <table>
+              <thead><tr><th>Product</th><th>Price</th><th>Stock</th><th></th></tr></thead>
+              <tbody>
+                <tr><td>Maize Seeds (5kg)</td><td>R 120.00</td><td><span class="tag" style="background:rgba(39,174,96,.2)">In Stock</span></td><td><button class="btn agri small">Buy</button></td></tr>
+                <tr><td>Organic Fertilizer</td><td>R 85.00</td><td><span class="tag" style="background:rgba(39,174,96,.2)">In Stock</span></td><td><button class="btn agri small">Buy</button></td></tr>
+                <tr><td>Watering Can</td><td>R 65.00</td><td><span class="tag" style="background:rgba(230,126,34,.2)">Low Stock</span></td><td><button class="btn agri small">Buy</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h4>Farmer Tools</h4>
+            <div class="row">
+              <button class="btn agri" onclick="momoAction('plantingCalendar')">Planting Calendar</button>
+              <button class="btn agri" onclick="momoAction('cropMonitor')">Crop Monitoring</button>
+            </div>
+            <div class="space"></div>
+            <h4>Agri Fund</h4>
+            <div class="muted">R1,800 available for purchases</div>
+            <div class="space"></div>
+            <button class="btn agri" onclick="momoAction('addAgriFunds')">Add Funds</button>
+            
+            <div class="space"></div>
+            <h4>USSD Agri Access</h4>
+            <div class="muted">Dial *120*2474# for agri payments</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other MoMo sections would be here (Transport, Finance, Community) -->
+      <div id="momo-transport" class="momo-section" style="display:none">
+        <div class="space"></div>
+        <h3>🚌 Transport & Ticketing</h3>
+        <div class="grid two">
+          <div class="card">
+            <h4>Live Transport Routes</h4>
+            <div class="muted">Real-time scheduling and availability</div>
+            <div class="space"></div>
+            <table>
+              <thead><tr><th>Route</th><th>Next Departure</th><th>Fare</th><th></th></tr></thead>
+              <tbody>
+                <tr><td>Soweto to Johannesburg</td><td>15:30</td><td>R 25.00</td><td><button class="btn transport small">Book</button></td></tr>
+                <tr><td>Alexandra to Sandton</td><td>16:45</td><td>R 20.00</td><td><button class="btn transport small">Book</button></td></tr>
+                <tr><td>Khayelitsha to Cape Town</td><td>17:20</td><td>R 18.00</td><td><button class="btn transport small">Book</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h4>Digital Ticket System</h4>
+            <div class="muted">Offline QR codes for easy access</div>
+            <div class="space"></div>
+            <div class="card" style="text-align:center">
+              <div class="qr" style="margin:0 auto"></div>
+              <div class="muted">Ticket #T23892 - Valid until 18:30</div>
+            </div>
+            <div class="space"></div>
+            <h4>Travel History</h4>
+            <div class="muted">42 trips tracked this month</div>
+            <div class="space"></div>
+            <h4>USSD Booking</h4>
+            <div class="muted">Dial *120*8729# for tickets</div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="momo-finance" class="momo-section" style="display:none">
+        <div class="space"></div>
+        <h3>💳 Personal Finance</h3>
+        <div class="grid two">
+          <div class="card">
+            <h4>Loan Marketplace</h4>
+            <div class="muted">Compare offers from multiple providers</div>
+            <div class="space"></div>
+            <table>
+              <thead><tr><th>Provider</th><th>Amount</th><th>Rate</th><th></th></tr></thead>
+              <tbody>
+                <tr><td>Standard Bank</td><td>Up to R50,000</td><td>12.5%</td><td><button class="btn finance small">Apply</button></td></tr>
+                <tr><td>FNB</td><td>Up to R30,000</td><td>11.8%</td><td><button class="btn finance small">Apply</button></td></tr>
+                <tr><td>ABSA</td><td>Up to R25,000</td><td>13.2%</td><td><button class="btn finance small">Apply</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h4>Savings Goals</h4>
+            <div class="muted">Track your progress with visual indicators</div>
+            <div class="space"></div>
+            <div>
+              <div>Emergency Fund</div>
+              <div class="progress"><div class="progress-bar" style="width:65%"></div></div>
+              <div class="muted">R6,500 / R10,000</div>
+            </div>
+            <div class="space"></div>
+            <div>
+              <div>Education Fund</div>
+              <div class="progress"><div class="progress-bar" style="width:30%"></div></div>
+              <div class="muted">R3,000 / R10,000</div>
+            </div>
+            <div class="space"></div>
+            <h4>USSD Banking</h4>
+            <div class="muted">Dial *120*3279# for balance & transfers</div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="momo-community" class="momo-section" style="display:none">
+        <div class="space"></div>
+        <h3>🤝 Community Tools</h3>
+        <div class="grid two">
+          <div class="card">
+            <h4>Group Wallets</h4>
+            <div class="muted">3 active wallets in your community</div>
+            <div class="space"></div>
+            <table>
+              <thead><tr><th>Group</th><th>Members</th><th>Balance</th><th></th></tr></thead>
+              <tbody>
+                <tr><td>Farmers Cooperative</td><td>24</td><td>R12,400</td><td><button class="btn community small">View</button></td></tr>
+                <tr><td>Health Pool</td><td>42</td><td>R8,750</td><td><button class="btn community small">View</button></td></tr>
+                <tr><td>Business Stokvel</td><td>18</td><td>R15,200</td><td><button class="btn community small">View</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h4>Community Impact</h4>
+            <div class="muted">R370,000 total saved, 155 members helped</div>
+            <div class="space"></div>
+            <h4>Create New Group</h4>
+            <div class="muted">Start a cooperative or stokvel</div>
+            <div class="space"></div>
+            <button class="btn community" onclick="momoAction('createGroup')">Create Group</button>
+            
+            <div class="space"></div>
+            <h4>USSD Group Access</h4>
+            <div class="muted">Dial *120*4768# for group payments</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="profile" class="page">
+      <h2>My Profile</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Personal Information</h3>
+          <label>Username</label>
+          <input id="username" placeholder="choose a handle" value="lungile-shop" />
+          <label>Full Name</label>
+          <input id="fullname" placeholder="Your name" value="Lungile Mbeki" />
+          <label>Email</label>
+          <input id="email" type="email" placeholder="you@example.com" value="lungile@example.com" />
+          <label>Phone Number</label>
+          <input id="phone" placeholder="Your phone number" value="072 123 4567" />
+          <label>Country</label>
+          <select id="country">
+            <option value="">Select…</option>
+            <option value="ZA" selected>South Africa</option>
+            <option value="NG">Nigeria</option>
+            <option value="KE">Kenya</option>
+            <option value="GH">Ghana</option>
+          </select>
+          <div class="space"></div>
+          <label><input type="checkbox" id="twofa" checked /> Enable 2‑factor authentication</label>
+          <div class="space"></div>
+          <button class="btn" onclick="saveProfile()">Save Changes</button>
+        </div>
+        <div class="card">
+          <h3>Business Information</h3>
+          <label>Business Name</label>
+          <input id="businessName" placeholder="Business name" value="Lungile's Spaza Shop" />
+          <label>Business Type</label>
+          <select id="businessType">
+            <option value="">Select…</option>
+            <option value="retail" selected>Retail</option>
+            <option value="services">Services</option>
+            <option value="agriculture">Agriculture</option>
+            <option value="manufacturing">Manufacturing</option>
+          </select>
+          <label>Business Address</label>
+          <textarea id="businessAddress" placeholder="Business address">123 Main St, Soweto, Johannesburg</textarea>
+          <label>Tax ID</label>
+          <input id="taxId" placeholder="Tax identification number" value="1234567890" />
+          <div class="space"></div>
+          <h3>Branding</h3>
+          <p class="muted">App colors are applied from your brand brief.</p>
+          <div class="row" style="gap:14px">
+            <div class="card" style="background:var(--primary); color:var(--secondary);">Primary<br/><small>rgb(235,184,183)</small></div>
+            <div class="card" style="background:var(--secondary); color:#fff">Secondary<br/><small>rgb(42,67,108)</small></div>
+            <div class="card" style="background:var(--accent); color:#fff">Accent<br/><small>rgb(42,68,110)</small></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="space"></div>
+      
+      <div class="card">
+        <h3>Login Security</h3>
+        <div class="grid two">
+          <div>
+            <h4>Active Sessions</h4>
+            <ul>
+              <li>Chrome on Windows (This device) <button class="btn small ghost">Log out</button></li>
+              <li>Safari on iPhone <button class="btn small ghost">Log out</button></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Security Settings</h4>
+            <label><input type="checkbox" checked /> Email notifications</label>
+            <label><input type="checkbox" checked /> SMS notifications</label>
+            <label><input type="checkbox" /> Push notifications</label>
+            <div class="space"></div>
+            <button class="btn">Update Security</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MoMo Payment Modal -->
+  <div id="momoModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="momoModalTitle">MoMo Payment</h2>
+        <button class="modal-close" onclick="closeModal('momoModal')">&times;</button>
+      </div>
+      <div id="momoModalContent">
+        <p>Processing your MoMo payment...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="wrap">
+    <p>EMPOWA HUB — All-in-one platform for township entrepreneurs</p>
+    <p>© 2025 Al-azmeh. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Initialize the navigation system
+    function initNavigation() {
+      // Set up tab click handlers
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetPage = tab.getAttribute('data-target');
+          if (targetPage) {
+            showPage(targetPage);
+          }
+        });
+      });
+      
+      // Set up button click handlers
+      const buttons = document.querySelectorAll('.btn[data-target]');
+      buttons.forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetPage = button.getAttribute('data-target');
+          if (targetPage) {
+            showPage(targetPage);
+          }
+        });
+      });
+      
+      // Close mobile menu when a link is clicked
+      const navLinks = document.querySelectorAll('nav .tab');
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          document.getElementById('mainNav').classList.remove('active');
+        });
+      });
+    }
+    
+    // Function to show a specific page
+    function showPage(pageId) {
+      // Hide all pages
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(page => {
+        page.classList.remove('active');
+      });
+      
+      // Show the requested page
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.add('active');
+        
+        // If it's the MoMo page, show the health section by default
+        if (pageId === 'momo') {
+          showMomoSection('momo-health');
+        }
+      }
+      
+      // Update active tab indicator
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => {
+        if (tab.getAttribute('data-target') === pageId) {
+          tab.setAttribute('aria-current', 'page');
+        } else {
+          tab.removeAttribute('aria-current');
+        }
+      });
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+    
+    // Show specific MoMo section
+    function showMomoSection(sectionId) {
+      document.querySelectorAll('.momo-section').forEach(section => {
+        section.style.display = 'none';
+      });
+      document.getElementById(sectionId).style.display = 'block';
+    }
+    
+    // Toggle mobile menu
+    function toggleMobileMenu() {
+      const nav = document.getElementById('mainNav');
+      nav.classList.toggle('active');
+    }
+    
+    // Modal functions
+    function showModal(modalId, title, content) {
+      document.getElementById('momoModalTitle').textContent = title;
+      document.getElementById('momoModalContent').innerHTML = content;
+      document.getElementById(modalId).classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+    
+    // MoMo payment function
+    function momoPayment() {
+      showModal('momoModal', 'MoMo Payment', `
+        <div class="muted">Send money securely with MoMo</div>
+        <div class="space"></div>
+        <label>Recipient Phone Number</label>
+        <input id="momoRecipient" placeholder="e.g. 27721234567" value="27721234567" />
+        <small class="muted">Format: 2772XXXXXXX (MTN South Africa)</small>
+        <label>Amount (R)</label>
+        <input id="momoAmount" type="number" placeholder="0.00" value="10" />
+        <label>Reference</label>
+        <input id="momoRef" placeholder="e.g. Payment for goods" value="Test payment" />
+        <div class="space"></div>
+        <button class="btn" onclick="processMomoPayment()">Send Payment</button>
+      `);
+    }
+    
+    // Process MoMo payment
+    async function processMomoPayment() {
+      const recipient = document.getElementById('momoRecipient').value;
+      const amount = document.getElementById('momoAmount').value;
+      const reference = document.getElementById('momoRef').value;
+      
+      if (!recipient || !amount) {
+        alert('Please enter recipient and amount');
+        return;
+      }
+      
+      // Show processing state
+      document.getElementById('momoModalContent').innerHTML = `
+        <div style="text-align:center">
+          <div class="spinner"></div>
+          <p>Processing payment of R${amount} to ${recipient}...</p>
+        </div>
+      `;
+      
+      try {
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Simulate successful payment
+        document.getElementById('momoModalContent').innerHTML = `
+          <div style="text-align:center">
+            <div style="font-size:48px; color:var(--success)">✅</div>
+            <p>Payment of R${amount} to ${recipient} was successful!</p>
+            <p>Reference: ${reference || 'No reference provided'}</p>
+            <div class="space"></div>
+            <button class="btn" onclick="closeModal('momoModal')">Done</button>
+          </div>
+        `;
+        
+      } catch (error) {
+        document.getElementById('momoModalContent').innerHTML = `
+          <div style="text-align:center">
+            <div style="font-size:48px; color:var(--danger)">❌</div>
+            <p>Payment failed: ${error.message}</p>
+            <div class="space"></div>
+            <button class="btn" onclick="momoPayment()">Try Again</button>
+            <button class="btn ghost" onclick="closeModal('momoModal')">Cancel</button>
+          </div>
+        `;
+      }
+    }
+    
+    // MoMo action function
+    function momoAction(action) {
+      let title, content;
+      
+      switch(action) {
+        case 'orderMeds':
+          title = 'Order Medication';
+          content = `
+            <label>Pharmacy</label>
+            <select>
+              <option>Select Pharmacy</option>
+              <option>Dischem Pharmacy</option>
+              <option>Clicks Pharmacy</option>
+              <option>Local Clinic Pharmacy</option>
+            </select>
+            <label>Medication</label>
+            <input placeholder="Medication name">
+            <label>Prescription Image (if any)</label>
+            <input type="file">
+            <div class="space"></div>
+            <button class="btn health">Place Order</button>
+          `;
+          break;
+        case 'bookAppt':
+          title = 'Book Appointment';
+          content = `
+            <label>Healthcare Provider</label>
+            <select>
+              <option>Select Provider</option>
+              <option>Chris Hani Hospital</option>
+              <option>Soweto Clinic</option>
+              <option>Private Doctor</option>
+            </select>
+            <label>Date</label>
+            <input type="date">
+            <label>Time</label>
+            <input type="time">
+            <div class="space"></div>
+            <button class="btn health">Book Appointment</button>
+          `;
+          break;
+        case 'addHealthFunds':
+          title = 'Add to Health Fund';
+          content = `
+            <label>Amount (R)</label>
+            <input type="number" placeholder="0.00">
+            <label>Payment Method</label>
+            <select>
+              <option>MoMo Wallet</option>
+              <option>Bank Transfer</option>
+              <option>Cash</option>
+            </select>
+            <div class="space"></div>
+            <button class="btn health">Add Funds</button>
+          `;
+          break;
+        default:
+          title = 'MoMo Action';
+          content = `<p>This action would be processed through the MoMo API.</p>`;
+      }
+      
+      showModal('momoModal', title, content);
+    }
+    
+    // Biometric functions
+    function startFP() {
+      const bar = document.getElementById('fpprog');
+      let p = 0;
+      bar.style.width = '0%';
+      
+      const timer = setInterval(() => {
+        p += 5;
+        bar.style.width = p + '%';
+        if (p >= 100) {
+          clearInterval(timer);
+          document.getElementById('fpsensor').innerHTML = '✅';
+          alert('Fingerprint registered successfully!');
+        }
+      }, 100);
+    }
+    
+    function toggleCam() {
+      const btn = document.getElementById('camBtn');
+      if (btn.textContent === 'Start Camera') {
+        btn.textContent = 'Stop Camera';
+        document.getElementById('video').innerHTML = '<div style="color:white; text-align:center; padding:40px">Camera feed would appear here</div>';
+      } else {
+        btn.textContent = 'Start Camera';
+        document.getElementById('video').innerHTML = '📷';
+      }
+    }
+    
+    function completeFace() {
+      alert('Face registration completed successfully!');
+    }
+    
+    // Wallet functions
+    function verifyBank() {
+      const bank = document.getElementById('bank').value;
+      const acct = document.getElementById('acct').value;
+      
+      if (!bank || !acct) {
+        alert('Please select a bank and enter account number');
+        return;
+      }
+      
+      document.getElementById('acctname').value = 'Lungile Mbeki';
+      alert('Bank account verified successfully!');
+    }
+    
+    function linkWallet() {
+      const wtype = document.getElementById('wtype').value;
+      const waddr = document.getElementById('waddr').value;
+      
+      if (!wtype || !waddr) {
+        alert('Please select wallet type and enter address');
+        return;
+      }
+      
+      alert(`${wtype} wallet linked successfully!`);
+    }
+    
+    // USSD functions
+    function linkUSSD() {
+      const msisdn = document.getElementById('msisdn').value;
+      const mno = document.getElementById('mno').value;
+      
+      if (!msisdn) {
+        alert('Please enter mobile number');
+        return;
+      }
+      
+      alert(`USSD services activated for ${msisdn} (${mno})!`);
+    }
+    
+    // Profile functions
+    function saveProfile() {
+      alert('Profile saved successfully!');
+    }
+    
+    // Other payment functions
+    function sendMoney() {
+      alert("Send money functionality would open here");
+    }
+    
+    function requestMoney() {
+      alert("Request money functionality would open here");
+    }
+    
+    function payBill() {
+      alert("Pay bill functionality would open here");
+    }
+    
+    function downloadQR() {
+      alert("QR code download functionality would open here");
+    }
+    
+    // Initialize the app when the DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      initNavigation();
+      console.log('EMPOWA HUB with all pages initialized');
+    });
+  </script>
+</body>
+</html>    }
     .wrap{ max-width:1200px; margin-inline:auto; padding: 0 16px; }
     .topbar{ display:flex; align-items:center; gap:14px; padding:14px 0; }
     .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; }
