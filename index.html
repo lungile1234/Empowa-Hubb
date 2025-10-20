@@ -3,136 +3,135 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EMPOWA HUB — Unified Platform for Township Economies</title>
+  <title>EMPOWA HUB | Transforming Township Economies</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root{
-      /* Brand palette (from image brief) */
-      --primary: rgb(235,184,183);   /* soft rose */
-      --secondary: rgb(42,67,108);   /* deep navy */
-      --accent: rgb(42,68,110);      /* slightly lighter navy */
-      --ink: #1b2330;                /* text */
-      --muted: #8793a2;              /* secondary text */
-      --bg: #fffefe;                 /* near-white background */
-      --card: #ffffff;               /* card surface */
-      --ring: rgba(42,67,108,.25);
-      --success: #1aa37a;
-      --warning: #e07b00;
-      --danger: #d33f49;
+      /* Professional color palette */
+      --primary: #2E8B57;           /* Forest Green - growth, trust */
+      --secondary: #1E3A5F;         /* Navy Blue - stability, professionalism */
+      --accent: #FF6B35;            /* Orange - energy, action */
+      --light: #F8F9FA;             /* Light background */
+      --dark: #212529;              /* Dark text */
+      --muted: #6C757D;             /* Muted text */
+      --success: #28A745;           /* Success green */
+      --warning: #FFC107;           /* Warning yellow */
+      --danger: #DC3545;            /* Danger red */
+      --card-bg: #FFFFFF;           /* Card background */
+      --border: #E9ECEF;            /* Border color */
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    
+    *{ 
+      box-sizing:border-box; 
+      margin: 0;
+      padding: 0;
+    }
+    
+    html,body{ 
+      height:100%; 
+      scroll-behavior: smooth;
+    }
+    
     body{
-      margin:0;
-      font: 15px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color:var(--ink);
-      background:linear-gradient(180deg, rgba(235,184,183,.15), transparent 220px), var(--bg);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--dark);
+      background-color: var(--light);
+      line-height: 1.6;
+      font-size: 16px;
     }
 
-    /* ====== Topbar / Nav ====== */
+    /* ====== Header & Navigation ====== */
     header{
-      position:sticky; top:0; z-index:50;
-      background: linear-gradient(180deg, var(--secondary), var(--accent));
-      color:#fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      position: sticky; 
+      top: 0; 
+      z-index: 1000;
+      background: var(--secondary);
+      color: white;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.3s ease;
     }
-    .wrap{ max-width:1200px; margin-inline:auto; padding: 0 16px; }
-    .topbar{ display:flex; align-items:center; gap:14px; padding:14px 0; }
-    .brand{ display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px; }
-    .brand .mark{ width:34px; height:34px; display:grid; place-items:center; border-radius:10px; background:var(--primary); color:var(--secondary); font-weight:900; }
-    .brand .name{ font-size:18px; }
-    nav{ margin-left:auto; display:flex; flex-wrap:wrap; gap:6px; }
-    .tab{
-      appearance:none; border:0; background:transparent; color:#fff; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:600; opacity:.92;
-    }
-    .tab[aria-current="page"], .tab:hover{ background: rgba(255,255,255,.12); }
-    .cta{ margin-left:8px; background:var(--primary); color:var(--secondary); box-shadow:0 6px 16px rgba(0,0,0,.12); }
-
-    /* ====== Layout ====== */
-    main{ padding: 26px 0 60px; }
-    .grid{ display:grid; gap:16px; }
-    .two{ grid-template-columns: 1.4fr 1fr; }
-    .three{ grid-template-columns: repeat(3, 1fr); }
-    .four{ grid-template-columns: repeat(4, 1fr); }
-    @media (max-width: 920px){ 
-      .two,.three,.four{ grid-template-columns:1fr; } 
-      nav { display:none; }
-      .mobile-menu-btn { display:block; }
-    }
-
-    /* ====== Cards ====== */
-    .card{ background:var(--card); border-radius:16px; padding:18px; box-shadow: 0 10px 30px rgba(42,67,108,.08); border:1px solid rgba(42,67,108,.08); }
-    .card h3{ margin:0 0 10px; color:var(--secondary); font-size:18px; }
-    .muted{ color:var(--muted); }
-
-    /* ====== Buttons, inputs ====== */
-    .btn{ appearance:none; border:0; background:var(--secondary); color:#fff; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; box-shadow:0 6px 20px var(--ring); }
-    .btn.ghost{ background:transparent; color:var(--secondary); border:2px solid var(--secondary); }
-    .btn.pill{ border-radius:999px; }
-    .btn.rose{ background:var(--primary); color:var(--secondary); }
-    .btn.success{ background:var(--success); }
-    .btn.small{ padding:6px 10px; font-size:13px; }
-    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-    label{ display:block; font-weight:600; margin:.2rem 0 .35rem; color:var(--secondary); }
-    input, select, textarea{
-      width:100%; padding:11px 12px; border-radius:12px; border:1px solid rgba(42,67,108,.22); background:#fff; outline: none;
-      box-shadow: 0 0 0 0 var(--ring);
-    }
-    input:focus, select:focus, textarea:focus{ box-shadow: 0 0 0 4px var(--ring); }
-
-    /* ====== Hero ====== */
-    .hero{ background: linear-gradient(180deg, rgba(42,67,108,.07), transparent 60%), radial-gradient(800px 360px at 80% -60%, rgba(235,184,183,.45), transparent 60%); border-radius:22px; padding:28px; display:grid; gap:10px; }
-    .hero h1{ margin:0; font-size:clamp(24px, 2.4vw + 12px, 40px); color:var(--secondary); }
-    .hero p{ margin:0; color:#2c3b52; }
-
-    /* ====== Badges & chips ====== */
-    .chip{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background: rgba(235,184,183,.25); color:var(--secondary); font-weight:700; }
-
-    /* ====== Sections visibility (SPA) ====== */
-    .page{ display:none; }
-    .page.active{ display:block; }
-
-    /* ====== Tables ====== */
-    table{ width:100%; border-collapse:collapse; }
-    th,td{ padding:10px 8px; border-bottom:1px solid rgba(42,67,108,.12); text-align:left; }
-    th{ color:var(--secondary); font-size:13px; text-transform:uppercase; letter-spacing:.4px; }
-
-    /* ====== QR Stub ====== */
-    .qr{ width:140px; height:140px; background: repeating-linear-gradient(45deg,#000 0 6px,#fff 6px 12px); border-radius:8px; border:6px solid #000; }
-
-    /* ====== Footer ====== */
-    footer{ padding:30px 0; color:#5b6574; text-align:center; }
-
-    /* small helpers */
-    .space{ height:16px; }
-    .right{ margin-left:auto; }
     
-    /* Progress bars */
-    .progress{ height:12px; background:#eef2f7; border-radius:999px; overflow:hidden; margin:8px 0; }
-    .progress-bar{ height:100%; background:var(--success); border-radius:999px; }
+    .container{ 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 0 20px; 
+    }
     
-    /* Modal */
-    .modal{ display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.7); z-index:100; align-items:center; justify-content:center; }
-    .modal.active{ display:flex; }
-    .modal-content{ background:#fff; border-radius:16px; padding:24px; max-width:500px; width:90%; max-height:90vh; overflow-y:auto; }
-    .modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
-    .modal-close{ background:none; border:none; font-size:24px; cursor:pointer; }
+    .navbar{ 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between;
+      padding: 16px 0;
+    }
     
-    /* Loading spinner */
-    .spinner {
-      border: 4px solid rgba(0, 0, 0, 0.1);
-      border-radius: 50%;
-      border-top: 4px solid var(--secondary);
+    .logo { 
+      display: flex; 
+      align-items: center; 
+      gap: 12px;
+    }
+    
+    .logo-icon {
       width: 40px;
       height: 40px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    
+    .logo-text { 
+      font-size: 22px; 
+      font-weight: 700;
+      letter-spacing: -0.5px;
     }
-
-    /* Mobile menu */
+    
+    .nav-links {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .nav-link {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.85);
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    
+    .nav-cta {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    }
+    
+    .nav-cta:hover {
+      background: #e55a2b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
+    }
+    
     .mobile-menu-btn {
       display: none;
       background: transparent;
@@ -141,83 +140,357 @@
       font-size: 24px;
       cursor: pointer;
     }
-    
-    @media (max-width: 920px) {
-      .mobile-menu-btn {
-        display: block;
-        margin-left: auto;
-      }
-      
-      nav {
-        position: fixed;
-        top: 62px;
-        left: 0;
-        right: 0;
-        background: var(--secondary);
-        flex-direction: column;
-        padding: 16px;
-        gap: 8px;
-        z-index: 100;
-        box-shadow: 0 10px 30px rgba(0,0,0,.2);
-        display: none;
-      }
-      
-      nav.active {
-        display: flex;
-      }
+
+    /* ====== Main Content ====== */
+    main {
+      padding: 40px 0 80px;
     }
     
-    /* Professional enhancements */
+    .section {
+      margin-bottom: 60px;
+    }
+    
+    .page {
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* ====== Hero Section ====== */
+    .hero {
+      background: linear-gradient(135deg, var(--secondary) 0%, #2c5282 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 60px 40px;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23ffffff" opacity="0.03"><polygon points="0,0 100,100 0,100"/></svg>');
+      background-size: cover;
+    }
+    
+    .hero-content {
+      max-width: 700px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-badges {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .badge {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+    }
+    
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+      max-width: 600px;
+    }
+    
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    
+    /* ====== Buttons ====== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 16px;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(46, 139, 87, 0.3);
+    }
+    
+    .btn-primary:hover {
+      background: #247348;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(46, 139, 87, 0.4);
+    }
+    
+    .btn-secondary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    }
+    
+    .btn-secondary:hover {
+      background: #e55a2b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 107, 53, 0.4);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .btn-small {
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+    
+    /* ====== Cards ====== */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .card-header {
+      margin-bottom: 16px;
+    }
+    
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    
+    .card-subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    
+    /* ====== Grid System ====== */
+    .grid {
+      display: grid;
+      gap: 24px;
+    }
+    
+    .grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    /* ====== Stats Section ====== */
+    .stats {
+      margin: 40px 0;
+    }
+    
     .stat-card {
       text-align: center;
-      padding: 20px;
+      padding: 30px 20px;
     }
     
     .stat-number {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 800;
-      color: var(--secondary);
+      color: var(--primary);
       margin-bottom: 8px;
+      line-height: 1;
     }
     
     .stat-label {
       color: var(--muted);
       font-size: 0.9rem;
+      font-weight: 500;
     }
     
-    .feature-icon {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
-      color: var(--secondary);
+    /* ====== Features Section ====== */
+    .features {
+      margin: 60px 0;
     }
     
     .section-header {
-      margin-bottom: 30px;
       text-align: center;
+      margin-bottom: 40px;
     }
     
-    .section-header h2 {
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 700;
       color: var(--secondary);
-      font-size: 2rem;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
     
-    .section-header p {
+    .section-subtitle {
       color: var(--muted);
+      font-size: 1.1rem;
       max-width: 600px;
       margin: 0 auto;
     }
     
-    .testimonial {
-      background: rgba(42,67,108,.05);
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(46, 139, 87, 0.1);
+      color: var(--primary);
       border-radius: 16px;
-      padding: 20px;
-      margin-top: 20px;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--secondary);
+    }
+    
+    .feature-description {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    
+    /* ====== Tables ====== */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th {
+      background: var(--light);
+      color: var(--secondary);
+      font-weight: 600;
+      padding: 16px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    td {
+      padding: 16px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    /* ====== Badges & Tags ====== */
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    .tag-success {
+      background: rgba(40, 167, 69, 0.1);
+      color: var(--success);
+    }
+    
+    .tag-warning {
+      background: rgba(255, 193, 7, 0.1);
+      color: #856404;
+    }
+    
+    .tag-info {
+      background: rgba(23, 162, 184, 0.1);
+      color: #0c5460;
+    }
+    
+    /* ====== Progress Bars ====== */
+    .progress {
+      height: 8px;
+      background: var(--light);
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 8px 0;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 4px;
+    }
+    
+    /* ====== Testimonials ====== */
+    .testimonial {
+      background: rgba(46, 139, 87, 0.05);
+      border-radius: 12px;
+      padding: 24px;
+      border-left: 4px solid var(--primary);
     }
     
     .testimonial-text {
       font-style: italic;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
+      line-height: 1.7;
     }
     
     .testimonial-author {
@@ -225,178 +498,372 @@
       color: var(--secondary);
     }
     
-    .nyda-badge {
-      background: rgba(26, 163, 122, 0.1);
-      color: var(--success);
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
+    /* ====== Form Elements ====== */
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
       font-weight: 600;
-      display: inline-block;
-      margin-left: 8px;
+      margin-bottom: 8px;
+      color: var(--secondary);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.2s ease;
+      background: white;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+    }
+    
+    .form-select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 16px;
+      background: white;
+      cursor: pointer;
+    }
+    
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    .form-check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .form-check-input {
+      width: 18px;
+      height: 18px;
+    }
+    
+    /* ====== Auth Pages ====== */
+    .auth-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .auth-switch {
+      text-align: center;
+      margin-top: 24px;
+    }
+    
+    .auth-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .auth-link:hover {
+      text-decoration: underline;
+    }
+    
+    /* ====== Footer ====== */
+    footer {
+      background: var(--secondary);
+      color: white;
+      padding: 40px 0;
+      margin-top: 60px;
+    }
+    
+    .footer-content {
+      text-align: center;
+    }
+    
+    .footer-logo {
+      margin-bottom: 20px;
+    }
+    
+    .footer-text {
+      opacity: 0.8;
+      margin-bottom: 10px;
+    }
+    
+    .footer-copyright {
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+    
+    /* ====== Utility Classes ====== */
+    .text-center {
+      text-align: center;
+    }
+    
+    .text-muted {
+      color: var(--muted);
+    }
+    
+    .mb-0 {
+      margin-bottom: 0;
+    }
+    
+    .mb-1 {
+      margin-bottom: 8px;
+    }
+    
+    .mb-2 {
+      margin-bottom: 16px;
+    }
+    
+    .mb-3 {
+      margin-bottom: 24px;
+    }
+    
+    .mb-4 {
+      margin-bottom: 32px;
+    }
+    
+    .mt-1 {
+      margin-top: 8px;
+    }
+    
+    .mt-2 {
+      margin-top: 16px;
+    }
+    
+    .mt-3 {
+      margin-top: 24px;
+    }
+    
+    .mt-4 {
+      margin-top: 32px;
+    }
+    
+    .space {
+      height: 24px;
+    }
+    
+    /* ====== Responsive Design ====== */
+    @media (max-width: 1024px) {
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        flex-wrap: wrap;
+      }
+      
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        margin-top: 16px;
+      }
+      
+      .nav-links.active {
+        display: flex;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .hero h1 {
+        font-size: 2.25rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px;
+      }
+      
+      .hero {
+        padding: 40px 24px;
+      }
+      
+      .hero h1 {
+        font-size: 1.875rem;
+      }
+      
+      .section-title {
+        font-size: 1.75rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <div class="wrap topbar">
-      <div class="brand" role="img" aria-label="Al-azmeh logo">
-        <div class="mark">Az</div>
-        <div class="name">EMPOWA HUB</div>
-      </div>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
-      <nav aria-label="Primary" id="mainNav">
-        <button class="tab" data-target="home" aria-current="page">Home</button>
-        <button class="tab" data-target="market">Marketplace</button>
-        <button class="tab" data-target="learn">Learning</button>
-        <button class="tab" data-target="jobs">Jobs</button>
-        <button class="tab" data-target="funding">Funding</button>
-        <button class="tab" data-target="payments">Payments</button>
-        <button class="tab" data-target="wallet">Wallet</button>
-        <button class="tab" data-target="biometric">Biometric</button>
-        <button class="tab" data-target="ussd">USSD</button>
-        <button class="tab" data-target="profile" class="right">Profile</button>
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo">
+          <div class="logo-icon">EH</div>
+          <div class="logo-text">EMPOWA HUB</div>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="nav-links" id="navLinks">
+          <a href="#" class="nav-link active" data-target="home">Home</a>
+          <a href="#" class="nav-link" data-target="learn">Learning</a>
+          <a href="#" class="nav-link" data-target="jobs">Jobs</a>
+          <a href="#" class="nav-link" data-target="funding">Funding</a>
+          <a href="#" class="nav-link" data-target="payments">Payments</a>
+          <a href="#" class="nav-link" data-target="profile">Profile</a>
+        </div>
+        
+        <div class="user-auth" id="userAuth">
+          <button class="nav-cta" id="loginBtn">Login</button>
+        </div>
       </nav>
-      <button class="tab cta pill" data-target="payments">Open App</button>
     </div>
   </header>
 
-  <main class="wrap">
-    <!-- HOME -->
+  <!-- Main Content -->
+  <main class="container">
+    <!-- Home Page -->
     <section id="home" class="page active">
       <div class="hero">
-        <div class="row" style="gap:8px; flex-wrap:wrap; align-items:center">
-          <span class="chip">All-in-one platform</span>
-          <span class="chip" style="background:rgba(42,67,108,.12); color:var(--accent)">App + Payments</span>
-          <span class="chip" style="background:rgba(26,163,122,.2); color:var(--success)">Verified & Secure</span>
-        </div>
-        <h1>Empowering township entrepreneurs with tools, skills, markets and seamless payments in one place.</h1>
-        <p>Welcome to <strong>EMPOWA HUB</strong>. Explore the marketplace, access learning & funding, and move money instantly with our integrated wallet, QR, USSD and biometric security.</p>
-        <div class="space"></div>
-        <div class="row">
-          <button class="btn rose pill" data-target="market">Explore Marketplace</button>
-          <button class="btn pill" data-target="payments">Go to Payments</button>
-          <button class="btn ghost pill" data-target="funding">Find Funding</button>
-        </div>
-      </div>
-      
-      <div class="space"></div>
-      
-      <!-- Impact Statistics -->
-      <div class="section-header">
-        <h2>Our Impact</h2>
-        <p>EMPOWA HUB is transforming township economies through technology and innovation</p>
-      </div>
-      
-      <div class="grid four">
-        <div class="card stat-card">
-          <div class="stat-number">50,000+</div>
-          <div class="stat-label">Micro-jobs Created</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-number">100,000+</div>
-          <div class="stat-label">Youth & Entrepreneurs Trained</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-number">500,000+</div>
-          <div class="stat-label">Unbanked Individuals Reached</div>
-        </div>
-        <div class="card stat-card">
-          <div class="stat-number">60%</div>
-          <div class="stat-label">Reduction in Illicit Goods</div>
+        <div class="hero-content">
+          <div class="hero-badges">
+            <span class="badge">All-in-one platform</span>
+            <span class="badge">Skills + Jobs</span>
+            <span class="badge">Verified & Secure</span>
+          </div>
+          <h1>Empowering township entrepreneurs with skills and opportunities</h1>
+          <p>Welcome to EMPOWA HUB. Access learning & funding, find job opportunities, and build your career with our integrated platform.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-target="learn">
+              <i class="fas fa-graduation-cap"></i> Start Learning
+            </button>
+            <button class="btn btn-secondary" data-target="jobs">
+              <i class="fas fa-briefcase"></i> Find Jobs
+            </button>
+            <button class="btn btn-outline" data-target="funding">
+              <i class="fas fa-hand-holding-usd"></i> Find Funding
+            </button>
+          </div>
         </div>
       </div>
       
-      <div class="space"></div>
-      
-      <!-- Platform Features -->
-      <div class="section-header">
-        <h2>Platform Features</h2>
-        <p>Everything township entrepreneurs need to grow their businesses</p>
-      </div>
-      
-      <div class="grid three">
-        <div class="card">
-          <div class="feature-icon">🛒</div>
-          <h3>Verified Marketplace</h3>
-          <p class="muted">Connect with trusted local suppliers and customers. Our AI-powered verification ensures product safety and authenticity.</p>
-        </div>
-        <div class="card">
-          <div class="feature-icon">💳</div>
-          <h3>Seamless Payments</h3>
-          <p class="muted">Multiple payment options including QR codes, USSD, and biometric authentication. Works even with low connectivity.</p>
-        </div>
-        <div class="card">
-          <div class="feature-icon">📚</div>
-          <h3>Skills Development</h3>
-          <p class="muted">Access courses, training, and mentorship programs designed specifically for township entrepreneurs.</p>
-        </div>
-        <div class="card">
-          <div class="feature-icon">💼</div>
-          <h3>Job Opportunities</h3>
-          <p class="muted">Find employment or hire talent through our job matching platform tailored for local businesses.</p>
-        </div>
-        <div class="card">
-          <div class="feature-icon">💰</div>
-          <h3>Funding Access</h3>
-          <p class="muted">Connect with grants, loans, and investor opportunities to grow your business.</p>
-        </div>
-        <div class="card">
-          <div class="feature-icon">🔒</div>
-          <h3>Secure by Design</h3>
-          <p class="muted">Advanced security features including biometric authentication and transaction monitoring.</p>
+      <!-- Stats Section -->
+      <div class="stats">
+        <div class="grid grid-4">
+          <div class="card stat-card">
+            <div class="stat-number">50,000+</div>
+            <div class="stat-label">Micro-jobs Created</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-number">100,000+</div>
+            <div class="stat-label">Youth & Entrepreneurs Trained</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-number">500,000+</div>
+            <div class="stat-label">Unbanked Individuals Reached</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-number">60%</div>
+            <div class="stat-label">Reduction in Illicit Goods</div>
+          </div>
         </div>
       </div>
       
-      <div class="space"></div>
+      <!-- Features Section -->
+      <div class="features">
+        <div class="section-header">
+          <h2 class="section-title">Platform Features</h2>
+          <p class="section-subtitle">Everything you need to grow your career and business</p>
+        </div>
+        
+        <div class="grid grid-3">
+          <div class="card">
+            <div class="feature-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3 class="feature-title">Skills Development</h3>
+            <p class="feature-description">Access courses, training, and mentorship programs designed specifically for township entrepreneurs.</p>
+          </div>
+          <div class="card">
+            <div class="feature-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <h3 class="feature-title">Job Opportunities</h3>
+            <p class="feature-description">Find employment or hire talent through our job matching platform tailored for local businesses.</p>
+          </div>
+          <div class="card">
+            <div class="feature-icon">
+              <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <h3 class="feature-title">Funding Access</h3>
+            <p class="feature-description">Connect with grants, loans, and investor opportunities to grow your business.</p>
+          </div>
+          <div class="card">
+            <div class="feature-icon">
+              <i class="fas fa-wallet"></i>
+            </div>
+            <h3 class="feature-title">Seamless Payments</h3>
+            <p class="feature-description">Multiple payment options including QR codes, USSD, and biometric authentication.</p>
+          </div>
+          <div class="card">
+            <div class="feature-icon">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <h3 class="feature-title">Secure Profile</h3>
+            <p class="feature-description">Manage your personal and professional information with enterprise-grade security.</p>
+          </div>
+          <div class="card">
+            <div class="feature-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="feature-title">Secure by Design</h3>
+            <p class="feature-description">Advanced security features including biometric authentication and data protection.</p>
+          </div>
+        </div>
+      </div>
       
       <!-- Testimonials -->
-      <div class="section-header">
-        <h2>Success Stories</h2>
-        <p>Hear from entrepreneurs who have transformed their businesses with EMPOWA HUB</p>
-      </div>
-      
-      <div class="grid two">
-        <div class="card">
-          <div class="testimonial">
-            <div class="testimonial-text">"EMPOWA HUB helped me expand my spaza shop from a small counter to a full store. The marketplace connected me with reliable suppliers, and the payment system made transactions so much easier."</div>
-            <div class="testimonial-author">- Thandi M., Small Business Owner</div>
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Success Stories</h2>
+          <p class="section-subtitle">Hear from entrepreneurs who have transformed their careers with EMPOWA HUB</p>
+        </div>
+        
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="testimonial">
+              <p class="testimonial-text">"EMPOWA HUB's Excel automation course helped me start a freelance business. I now earn R200/hour helping companies automate their spreadsheets!"</p>
+              <p class="testimonial-author">- Thandi M., Freelance Consultant</p>
+            </div>
           </div>
-        </div>
-        <div class="card">
-          <div class="testimonial">
-            <div class="testimonial-text">"As a young graduate struggling to find work, EMPOWA HUB's skills training gave me the confidence to start my own electrical services business. The platform connected me with my first clients."</div>
-            <div class="testimonial-author">- Sipho K., Entrepreneur</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MARKETPLACE -->
-    <section id="market" class="page">
-      <h2>Marketplace</h2>
-      <div class="grid two">
-        <div class="card">
-          <h3>Local Marketplace</h3>
-          <p class="muted">Sample items from nearby suppliers.</p>
-          <div class="space"></div>
-          <table>
-            <thead><tr><th>Item</th><th>Supplier</th><th>Price</th><th></th></tr></thead>
-            <tbody>
-              <tr><td>Maize Meal (50kg)</td><td>Soweto Milling Co‑op</td><td>R 320.00</td><td><button class="btn rose small">Add</button></td></tr>
-              <tr><td>Vegetable Box</td><td>Thembisa Farms</td><td>R 150.00</td><td><button class="btn rose small">Add</button></td></tr>
-              <tr><td>Handmade Soaps</td><td>Vaal Women Collective</td><td>R 45.00</td><td><button class="btn rose small">Add</button></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="card">
-          <h3>Cart</h3>
-          <p class="muted">Connected to EMPOWA Payments for checkout.</p>
-          <div id="cartEmpty" class="muted">Your cart is empty.</div>
-          <div id="cartList" style="display:none"></div>
-          <div class="row" style="justify-content:space-between; margin-top:12px">
-            <strong>Total: <span id="cartTotal">R 0.00</span></strong>
-            <button class="btn" data-target="payments">Checkout</button>
+          <div class="card">
+            <div class="testimonial">
+              <p class="testimonial-text">"As a young graduate struggling to find work, EMPOWA HUB's skills training gave me the confidence to start my own electrical services business."</p>
+              <p class="testimonial-author">- Sipho K., Entrepreneur</p>
+            </div>
           </div>
         </div>
       </div>
@@ -404,780 +871,775 @@
 
     <!-- LEARNING -->
     <section id="learn" class="page">
-      <h2>Skills Development</h2>
-      <div class="grid two">
+      <div class="section-header">
+        <h2 class="section-title">Skills Development</h2>
+        <p class="section-subtitle">Access courses, training, and mentorship programs</p>
+      </div>
+      
+      <div class="grid grid-2">
         <div class="card">
-          <h3>EMPOWA Courses</h3>
-          <ul>
-            <li><strong>Retail Basics for Spaza Owners</strong> (6 weeks) <span class="muted">- Learn inventory management, customer service, and financial basics</span></li>
-            <li><strong>Electrical Installations Level 2</strong> (12 weeks) <span class="muted">- Certified training for electricians</span></li>
-            <li><strong>Digital Skills: WhatsApp Business</strong> (2 weeks) <span class="muted">- Leverage WhatsApp for customer engagement</span></li>
-            <li><strong>Agriculture Fundamentals</strong> (8 weeks) <span class="muted">- Modern farming techniques for smallholders</span></li>
-            <li><strong>Basic Bookkeeping</strong> (4 weeks) <span class="muted">- Manage your business finances effectively</span></li>
+          <div class="card-header">
+            <h3 class="card-title">EMPOWA Courses</h3>
+            <p class="card-subtitle">Practical skills for immediate income generation</p>
+          </div>
+          
+          <ul style="list-style: none; padding: 0;">
+            <li class="mb-3">
+              <strong>Retail Basics for Spaza Owners</strong> (6 weeks)
+              <div class="text-muted">Learn inventory management, customer service, and financial basics</div>
+            </li>
+            <li class="mb-3">
+              <strong>Electrical Installations Level 2</strong> (12 weeks)
+              <div class="text-muted">Certified training for electricians</div>
+            </li>
+            <li class="mb-3">
+              <strong>Digital Skills: WhatsApp Business</strong> (2 weeks)
+              <div class="text-muted">Leverage WhatsApp for customer engagement</div>
+            </li>
+            <li class="mb-3">
+              <strong>Agriculture Fundamentals</strong> (8 weeks)
+              <div class="text-muted">Modern farming techniques for smallholders</div>
+            </li>
+            <li class="mb-3">
+              <strong>Basic Bookkeeping</strong> (4 weeks)
+              <div class="text-muted">Manage your business finances effectively</div>
+            </li>
           </ul>
           
           <div class="space"></div>
-          <h3>Partner Programs</h3>
           
-          <div class="card" style="border-left: 4px solid var(--success);">
-            <h4>NYDA Life Skills Programme <span class="nyda-badge">Official Partner</span></h4>
-            <p class="muted">Essential skills for employability and entrepreneurship in a changing world.</p>
+          <h4 class="mb-2">Free Certificate Opportunities</h4>
+          
+          <div class="card" style="border-left: 4px solid var(--accent);">
+            <h5>Excel Automation Certificate <span class="tag tag-success">Free</span></h5>
+            <p class="text-muted mb-2">Master automation in Excel with our free course and earn up to <strong>R200/hour</strong> helping companies streamline their Excel tasks.</p>
+            <p><strong>Earning Potential:</strong> R200 per hour helping businesses automate spreadsheets</p>
+            <div class="space"></div>
+            <a href="https://www.mygreatlearning.com/academy/learn-for-free/courses/basics-of-automation-in-excel" target="_blank" class="btn btn-secondary btn-small">
+              <i class="fas fa-external-link-alt"></i> Get Free Certificate
+            </a>
+          </div>
+          
+          <div class="space"></div>
+          
+          <div class="card" style="border-left: 4px solid var(--accent);">
+            <h5>Open Source University <span class="tag tag-success">Free Courses</span></h5>
+            <p class="text-muted mb-2">Access free university-level courses in computer science, mathematics, and programming from the Open Source Society University.</p>
+            <p><strong>Subjects:</strong> Computer Science, Data Science, Programming, Mathematics</p>
+            <div class="space"></div>
+            <a href="https://ossu.dev/" target="_blank" class="btn btn-secondary btn-small">
+              <i class="fas fa-external-link-alt"></i> Explore Free Courses
+            </a>
+          </div>
+          
+          <div class="space"></div>
+          
+          <div class="card" style="border-left: 4px solid var(--accent);">
+            <h5>Video Editing with Premiere Pro <span class="tag tag-success">Free Training</span></h5>
+            <p class="text-muted mb-2">Learn professional video editing with Premiere Pro and Canva. Perfect for social media content creation and freelance work.</p>
+            <p><strong>Skills:</strong> Video editing, social media content, professional editing techniques</p>
+            <div class="space"></div>
+            <a href="https://www.udemy.com/course/social-media-video-editing-with-premiere-pro-canva-filmora/" target="_blank" class="btn btn-secondary btn-small">
+              <i class="fas fa-external-link-alt"></i> Start Video Editing Course
+            </a>
+          </div>
+          
+          <div class="space"></div>
+          
+          <div class="card" style="border-left: 4px solid var(--accent);">
+            <h5>IT & Tech Skills <span class="tag tag-success">Free Training</span></h5>
+            <p class="text-muted mb-2">Build in-demand IT skills through The Airtable Academy. Learn database management, automation, and tech tools used by companies worldwide.</p>
+            <p><strong>Career Path:</strong> IT Support, Database Management, Tech Administration</p>
+            <div class="space"></div>
+            <a href="https://www.udemy.com/course/the-airtable-academy/" target="_blank" class="btn btn-secondary btn-small">
+              <i class="fas fa-external-link-alt"></i> Learn IT Skills
+            </a>
+          </div>
+
+          <div class="space"></div>
+          
+          <h4 class="mb-2">Partner Programs</h4>
+          
+          <div class="card" style="border-left: 4px solid var(--primary);">
+            <h5>NYDA Life Skills Programme <span class="tag tag-success">Official Partner</span></h5>
+            <p class="text-muted mb-2">Essential skills for employability and entrepreneurship in a changing world.</p>
             <p><strong>Topics covered:</strong> Self-management, problem solving, teamwork, time management, leadership, and adaptability.</p>
             <p><strong>Access:</strong> Visit your closest NYDA branch or log on to: www.arp.nyda.gov.za</p>
             <div class="space"></div>
-            <button class="btn small">Learn More</button>
-          </div>
-          
-          <div class="space"></div>
-          
-          <div class="card" style="border-left: 4px solid var(--success);">
-            <h4>YANDA Entrepreneurship Program <span class="nyda-badge">Fully Funded</span></h4>
-            <p class="muted">For entrepreneurs in Nkangala District with groundbreaking ideas.</p>
-            <p><strong>Benefits:</strong> Free business development training, access to funding, business registration, web/graphic design support, and 3D printing access.</p>
-            <p><strong>Apply at:</strong> www.yandacie.co.za | Closing: September 2025</p>
-            <div class="space"></div>
-            <button class="btn small">Apply Now</button>
+            <button class="btn btn-primary btn-small">Learn More</button>
           </div>
         </div>
         
         <div class="card">
-          <h3>My Progress</h3>
-          <p class="muted">Sign in to track progress, quizzes and certificates.</p>
-          <div class="space"></div>
-          <div class="card">
-            <h4>Retail Basics for Spaza Owners</h4>
-            <div class="progress"><div class="progress-bar" style="width:65%"></div></div>
-            <p class="muted">65% completed</p>
+          <div class="card-header">
+            <h3 class="card-title">My Learning Progress</h3>
+            <p class="card-subtitle">Track your courses, quizzes and certificates</p>
           </div>
-          <div class="space"></div>
+          
+          <div class="card mb-3">
+            <h4 class="mb-1">Retail Basics for Spaza Owners</h4>
+            <div class="progress">
+              <div class="progress-bar" style="width: 65%"></div>
+            </div>
+            <p class="text-muted mb-0">65% completed</p>
+          </div>
+          
           <div class="card">
-            <h4>Digital Skills: WhatsApp Business</h4>
-            <div class="progress"><div class="progress-bar" style="width:100%"></div></div>
-            <p class="muted">Completed! <button class="btn small">Download Certificate</button></p>
+            <h4 class="mb-1">Digital Skills: WhatsApp Business</h4>
+            <div class="progress">
+              <div class="progress-bar" style="width: 100%"></div>
+            </div>
+            <p class="text-muted mb-0">Completed! <button class="btn btn-primary btn-small">Download Certificate</button></p>
           </div>
           
           <div class="space"></div>
           
-          <h3>Specialized Skills Training</h3>
+          <h4 class="mb-2">High-Income Skills Spotlight</h4>
+          
+          <div class="card mb-3">
+            <h5 class="mb-1">Excel Automation Specialist</h5>
+            <p class="text-muted mb-2">Earn R200/hour helping businesses automate spreadsheets and data processes.</p>
+            <div class="tag tag-success mb-2">High Demand</div>
+            <a href="https://www.mygreatlearning.com/academy/learn-for-free/courses/basics-of-automation-in-excel" target="_blank" class="btn btn-secondary btn-small">
+              Start Free Course
+            </a>
+          </div>
+          
+          <div class="card mb-3">
+            <h5 class="mb-1">Video Editor</h5>
+            <p class="text-muted mb-2">Create content for businesses and earn R150-R300 per video project.</p>
+            <div class="tag tag-success mb-2">Creative Field</div>
+            <a href="https://www.udemy.com/course/social-media-video-editing-with-premiere-pro-canva-filmora/" target="_blank" class="btn btn-secondary btn-small">
+              Learn Video Editing
+            </a>
+          </div>
+          
           <div class="card">
-            <h4>AGSA Chartered Accountant Bursary <span class="nyda-badge">Bursary</span></h4>
-            <p class="muted">Become a Chartered Accountant with full bursary support from first year through CTA level.</p>
+            <h5>AGSA Chartered Accountant Bursary <span class="tag tag-info">Bursary</span></h5>
+            <p class="text-muted mb-2">Become a Chartered Accountant with full bursary support from first year through CTA level.</p>
             <p><strong>Apply at:</strong> Apply.agsa.co.za | Closing: 15 October 2025</p>
             <div class="space"></div>
-            <button class="btn small">Apply for Bursary</button>
+            <button class="btn btn-primary btn-small">Apply for Bursary</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- JOBS -->
+    <!-- Jobs Page -->
     <section id="jobs" class="page">
-      <h2>Job Opportunities</h2>
-      
-      <div class="card">
-        <h3>EMPOWA Partner Positions</h3>
-        <table>
-          <thead><tr><th>Role</th><th>Company</th><th>Location</th><th>Salary</th><th></th></tr></thead>
-          <tbody>
-            <tr><td>Assistant Electrician</td><td>eKhaya Energy</td><td>Vosloorus</td><td>R8,500 - R10,000</td><td><button class="btn rose small">Apply</button></td></tr>
-            <tr><td>Shop Manager</td><td>Phola Fresh</td><td>Soweto</td><td>R12,000 - R15,000</td><td><button class="btn rose small">Apply</button></td></tr>
-            <tr><td>Agriculture Assistant</td><td>GreenFingers Co-op</td><td>Alexandra</td><td>R7,000 - R9,000</td><td><button class="btn rose small">Apply</button></td></tr>
-            <tr><td>Sales Representative</td><td>Township Brands</td><td>Khayelitsha</td><td>R9,000 + commission</td><td><button class="btn rose small">Apply</button></td></tr>
-          </tbody>
-        </table>
+      <div class="section-header">
+        <h2 class="section-title">Job Opportunities</h2>
+        <p class="section-subtitle">Find employment or hire talent for your business</p>
       </div>
       
-      <div class="space"></div>
-      
-      <div class="card">
-        <h3>NYDA Opportunities <span class="nyda-badge">Official Partner</span></h3>
-        <p class="muted">Current vacancies through our partnership with National Youth Development Agency</p>
-        <div class="space"></div>
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title">EMPOWA Partner Positions</h3>
+          <p class="card-subtitle">Opportunities with our trusted business partners</p>
+        </div>
         
-        <h4>Executive & Specialist Roles</h4>
-        <ul>
-          <li>Service Manager - Office of the Executive Chairperson (3 year contract)</li>
-          <li>Executive Assistant - Office of the Executive Chairperson (5 year contract)</li>
-          <li>Specialist Parliamentary Union & President (3 year contract)</li>
-          <li>Specialist Member Ushers (5 year contract)</li>
-          <li>Specialist Researcher (3 year contract)</li>
-          <li>Manager Economic Development (3 year contract)</li>
-          <li>Specialist Investments and Partnerships (3 year contract)</li>
-          <li>Specialist Communications (3 year contract)</li>
-        </ul>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Company</th>
+                <th>Location</th>
+                <th>Salary</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Assistant Electrician</td>
+                <td>eKhaya Energy</td>
+                <td>Vosloorus</td>
+                <td>R8,500 - R10,000</td>
+                <td><button class="btn btn-primary btn-small">Apply</button></td>
+              </tr>
+              <tr>
+                <td>Shop Manager</td>
+                <td>Phola Fresh</td>
+                <td>Soweto</td>
+                <td>R12,000 - R15,000</td>
+                <td><button class="btn btn-primary btn-small">Apply</button></td>
+              </tr>
+              <tr>
+                <td>Agriculture Assistant</td>
+                <td>GreenFingers Co-op</td>
+                <td>Alexandra</td>
+                <td>R7,000 - R9,000</td>
+                <td><button class="btn btn-primary btn-small">Apply</button></td>
+              </tr>
+              <tr>
+                <td>Sales Representative</td>
+                <td>Township Brands</td>
+                <td>Khayelitsha</td>
+                <td>R9,000 + commission</td>
+                <td><button class="btn btn-primary btn-small">Apply</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title">NYDA Opportunities <span class="tag tag-success">Official Partner</span></h3>
+          <p class="card-subtitle">Current vacancies through our partnership with National Youth Development Agency</p>
+        </div>
         
-        <div class="space"></div>
-        
-        <h4>Operations & Regional Roles</h4>
-        <ul>
-          <li>Manager Facilities & Security Services (6 year contract)</li>
-          <li>Manager Asset & Integrity Management (8 year contract)</li>
-          <li>Regional Manager positions (6 year contracts)</li>
-          <li>Security Officers (Head Office)</li>
-          <li>Coordinator positions nationwide</li>
-          <li>Business Development Advisors</li>
-        </ul>
-        
-        <div class="space"></div>
-        
-        <h4>Internship Programme</h4>
-        <p><strong>Department of Women, Youth and Persons with Disabilities</strong> (24 Months)</p>
-        <ul>
-          <li>Intern: Advocacy and Mainstreaming, Rights of Persons with Disabilities</li>
-          <li>Intern: International Relations, Stakeholder Management</li>
-          <li>Intern: Social Empowerment of Women (R7,860 monthly)</li>
-        </ul>
-        <p><strong>Closing Date:</strong> 29 September 2025</p>
-        
-        <div class="space"></div>
-        <button class="btn">Apply via NYDA Portal</button>
-      </div>
-      
-      <div class="space"></div>
-      
-      <div class="grid two">
-        <div class="card">
-          <h3>Post a Job</h3>
-          <p class="muted">Are you hiring? Post your opportunity to our platform.</p>
-          <div class="space"></div>
-          <button class="btn">Post a Job</button>
-        </div>
-        <div class="card">
-          <h3>Career Resources</h3>
-          <p class="muted">Resume templates, interview tips, and career guidance.</p>
-          <div class="space"></div>
-          <button class="btn ghost">Explore Resources</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- FUNDING -->
-    <section id="funding" class="page">
-      <h2>Funding Opportunities</h2>
-      <div class="grid three">
-        <div class="card">
-          <h3>NYDA Grant</h3>
-          <p class="muted">Up to R50,000 for youth‑owned startups. Prepare a business plan and ID.</p>
-          <div class="space"></div>
-          <div class="chip" style="background:rgba(26,163,122,0.2); color:var(--success)">Deadline: 30 June 2025</div>
-          <div class="space"></div>
-          <button class="btn small">Start Application</button>
-        </div>
-        <div class="card">
-          <h3>SEDA Support</h3>
-          <p class="muted">Mentorship, market access and training for SMEs nationwide.</p>
-          <div class="space"></div>
-          <div class="chip" style="background:rgba(42,67,108,0.1); color:var(--secondary)">Ongoing</div>
-          <div class="space"></div>
-          <button class="btn small">Request Support</button>
-        </div>
-        <div class="card">
-          <h3>Skills Funding</h3>
-          <p class="muted">Learnerships for staff development (12–24 months).</p>
-          <div class="space"></div>
-          <div class="chip" style="background:rgba(235,184,183,0.3); color:var(--secondary)">Next intake: July 2025</div>
-          <div class="space"></div>
-          <button class="btn small">See Programs</button>
-        </div>
-      </div>
-      
-      <div class="space"></div>
-      
-      <div class="grid three">
-        <div class="card">
-          <h3>#PachiPandaChallenge <span class="nyda-badge">Green Tech</span></h3>
-          <p class="muted">For young South Africans (18-35) with innovative green tech solutions.</p>
-          <p><strong>Sectors:</strong> Water conservation, sustainable agriculture, energy solutions, waste management & recycling.</p>
-          <div class="space"></div>
-          <button class="btn small success">Apply Now</button>
-        </div>
-        <div class="card">
-          <h3>DESP Funding <span class="nyda-badge">Creative Arts</span></h3>
-          <p class="muted">Funding opportunity for young creatives in arts and culture.</p>
-          <p><strong>Opening:</strong> 16 September 2025</p>
-          <p><strong>Closing:</strong> 09 October 2025</p>
-          <div class="space"></div>
-          <button class="btn small">Apply Now</button>
-        </div>
-        <div class="card">
-          <h3>YANDA Program <span class="nyda-badge">Nkangala District</span></h3>
-          <p class="muted">Fully funded entrepreneurship program for SMMEs in Nkangala District.</p>
-          <p><strong>Benefits:</strong> Training, funding access, business registration, design support.</p>
-          <div class="space"></div>
-          <button class="btn small">Learn More</button>
-        </div>
-      </div>
-      
-      <div class="space"></div>
-      
-      <div class="grid two">
-        <div class="card">
-          <h3>Application Progress</h3>
-          <p class="muted">Track your funding applications</p>
-          <div class="space"></div>
-          <div class="card">
-            <h4>NYDA Grant Application</h4>
-            <div class="progress"><div class="progress-bar" style="width:40%"></div></div>
-            <p class="muted">Documents submitted - under review</p>
-          </div>
-        </div>
-        <div class="card">
-          <h3>Funding Resources</h3>
-          <p class="muted">Tools to help with your applications</p>
-          <ul>
-            <li>Business Plan Template</li>
-            <li>Budget Worksheet</li>
-            <li>Grant Writing Guide</li>
-            <li>Pitch Deck Examples</li>
-          </ul>
-          <div class="space"></div>
-          <button class="btn ghost">Download Resources</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAYMENTS -->
-    <section id="payments" class="page">
-      <h2>Payments</h2>
-      <div class="grid two">
-        <div class="card">
-          <h3>Quick Actions</h3>
-          <div class="row">
-            <button class="btn pill" onclick="sendMoney()">Send Money</button>
-            <button class="btn pill rose" onclick="requestMoney()">Request</button>
-            <button class="btn pill ghost" onclick="payBill()">Pay Bill</button>
-          </div>
-          <div class="space"></div>
-          <div class="grid three">
-            <div class="card"><div class="muted">Available</div><div style="font-size:24px; font-weight:800">R <span id="bal">12,580.50</span></div></div>
-            <div class="card"><div class="muted">This Month Spent</div><div style="font-size:24px; font-weight:800">R <span id="spent">1,280.00</span></div></div>
-            <div class="card"><div class="muted">Savings</div><div style="font-size:24px; font-weight:800">R 600.00</div></div>
-          </div>
-        </div>
-        <div class="card">
-          <h3>My QR Code</h3>
-          <p class="muted">Customers can scan to pay you.</p>
-          <div class="row" style="align-items:center; gap:16px">
-            <div class="qr" aria-label="QR placeholder"></div>
-            <div>
-              <div><strong>@az</strong>/<span id="handle">lungile-shop</span></div>
-              <button class="btn small" onclick="downloadQR()">Download QR</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="space"></div>
-      <div class="card">
-        <h3>Recent Activity</h3>
-        <table id="txTable">
-          <thead><tr><th>Date</th><th>Type</th><th>Details</th><th>Amount</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>2025-05-15</td><td>Received</td><td>From: S. Mthembu</td><td>R 250.00</td><td>Completed</td></tr>
-            <tr><td>2025-05-14</td><td>Purchase</td><td>Spaza supplies</td><td>R 180.50</td><td>Completed</td></tr>
-            <tr><td>2025-05-12</td><td>Transfer</td><td>To: Mom</td><td>R 500.00</td><td>Completed</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- WALLET -->
-    <section id="wallet" class="page">
-      <h2>Wallet & Accounts</h2>
-      <div class="grid two">
-        <div class="card">
-          <h3>Link Bank Account</h3>
-          <label>Bank</label>
-          <select id="bank">
-            <option value="">Select…</option>
-            <option>Standard Bank</option>
-            <option>FNB</option>
-            <option>ABSA</option>
-            <option>Nedbank</option>
-            <option>Capitec</option>
-          </select>
-          <label>Account Number</label>
-          <input id="acct" placeholder="e.g. 1234567890" />
-          <label>Account Name</label>
-          <input id="acctname" placeholder="Auto‑filled on verify" readonly />
-          <div class="space"></div>
-          <button class="btn" onclick="verifyBank()">Verify & Link</button>
-        </div>
-        <div class="card">
-          <h3>Link Crypto Wallet</h3>
-          <label>Wallet Type</label>
-          <select id="wtype">
-            <option value="">Select…</option>
-            <option>MetaMask</option>
-            <option>Trust Wallet</option>
-            <option>Ledger</option>
-            <option>Coinbase Wallet</option>
-          </select>
-          <label>Address</label>
-          <input id="waddr" placeholder="0x…" />
-          <div class="space"></div>
-          <button class="btn ghost" onclick="linkWallet()">Link Wallet</button>
-        </div>
-      </div>
-      
-      <div class="space"></div>
-      
-      <div class="card">
-        <h3>Connected Accounts</h3>
-        <table>
-          <thead><tr><th>Account</th><th>Type</th><th>Status</th><th>Balance</th><th></th></tr></thead>
-          <tbody>
-            <tr><td>Standard Bank ****4582</td><td>Bank Account</td><td><span class="chip" style="background:rgba(26,163,122,0.2); color:var(--success)">Connected</span></td><td>R 4,582.75</td><td><button class="btn small ghost">Manage</button></td></tr>
-            <tr><td>0x7a3B...E5f2</td><td>MetaMask</td><td><span class="chip" style="background:rgba(26,163,122,0.2); color:var(--success)">Connected</span></td><td>0.42 ETH</td><td><button class="btn small ghost">Manage</button></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- BIOMETRIC -->
-    <section id="biometric" class="page">
-      <h2>Biometric Security</h2>
-      <div class="grid two">
-        <div class="card">
-          <h3>Fingerprint</h3>
-          <p class="muted">Register your fingerprint for secure authentication.</p>
-          <div id="fpsensor" class="card" style="display:grid; place-items:center; height:140px; font-size:40px; cursor:pointer;" onclick="startFP()">👆</div>
-          <div style="background:#eef2f7; border-radius:8px; overflow:hidden; height:8px; margin:10px 0">
-            <div id="fpprog" style="height:100%; width:0%; background:var(--accent);"></div>
-          </div>
-          <button class="btn" onclick="startFP()">Register Fingerprint</button>
-        </div>
-        <div class="card">
-          <h3>Face ID</h3>
-          <p class="muted">Register your face for quick and secure access.</p>
-          <div id="video" class="card" style="display:grid; place-items:center; height:140px; font-size:40px; cursor:pointer;" onclick="toggleCam()">📷</div>
-          <div class="space"></div>
-          <div class="row">
-            <button class="btn" id="camBtn" onclick="toggleCam()">Start Camera</button>
-            <button class="btn ghost" onclick="completeFace()">Complete Registration</button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="space"></div>
-      
-      <div class="card">
-        <h3>Security Settings</h3>
-        <div class="row">
-          <label><input type="checkbox" checked /> Enable biometric login</label>
-          <label><input type="checkbox" checked /> Require biometric for payments</label>
-          <label><input type="checkbox" /> Require biometric for login</label>
-        </div>
-        <div class="space"></div>
-        <button class="btn">Save Settings</button>
-      </div>
-    </section>
-
-    <!-- USSD -->
-    <section id="ussd" class="page">
-      <h2>USSD Services</h2>
-      <div class="card">
-        <h3>USSD Setup</h3>
-        <div class="grid two">
+        <div class="grid grid-2">
           <div>
-            <label>Mobile Number</label>
-            <input id="msisdn" placeholder="e.g. 072 123 4567" value="072 123 4567" />
-            <label>Network</label>
-            <select id="mno">
-              <option>MTN</option>
-              <option>Vodacom</option>
-              <option>Telkom</option>
-              <option>Cell C</option>
-            </select>
-            <div class="space"></div>
-            <button class="btn" onclick="linkUSSD()">Link Number</button>
-          </div>
-          <div>
-            <div id="ussdSim" class="card" style="background:#0a0a0a; color:#0df10d; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; line-height:1.8;">
-              <div>Welcome to EMPOWA HUB USSD</div>
-              <div>1. Send Money</div>
-              <div>2. Pay Bill</div>
-              <div>3. Check Balance</div>
-              <div>4. Buy Airtime</div>
-              <div>5. My Profile</div>
-              <div>6. Help</div>
-              <div>0. Exit</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="space"></div>
-      
-      <div class="grid three">
-        <div class="card">
-          <h3>Quick USSD Codes</h3>
-          <ul>
-            <li>*120*723# - Send Money</li>
-            <li>*120*321# - Check Balance</li>
-            <li>*120*426# - Buy Airtime</li>
-            <li>*120*555# - Customer Care</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>USSD History</h3>
-          <p class="muted">Recent USSD transactions</p>
-          <div class="space"></div>
-          <ul>
-            <li>15 May - Sent R250 to 072 555 1212</li>
-            <li>14 May - Bought R50 airtime</li>
-            <li>12 May - Checked balance</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>USSD Settings</h3>
-          <p class="muted">Configure your USSD preferences</p>
-          <div class="space"></div>
-          <label><input type="checkbox" checked /> Enable transaction confirmations</label>
-          <label><input type="checkbox" checked /> Show balance after transactions</label>
-          <label><input type="checkbox" /> Require PIN for all transactions</label>
-          <div class="space"></div>
-          <button class="btn">Save Settings</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROFILE -->
-    <section id="profile" class="page">
-      <h2>My Profile</h2>
-      <div class="grid two">
-        <div class="card">
-          <h3>Personal Information</h3>
-          <label>Username</label>
-          <input id="username" placeholder="choose a handle" value="lungile-shop" />
-          <label>Full Name</label>
-          <input id="fullname" placeholder="Your name" value="Lungile Mbeki" />
-          <label>Email</label>
-          <input id="email" type="email" placeholder="you@example.com" value="lungile@example.com" />
-          <label>Phone Number</label>
-          <input id="phone" placeholder="Your phone number" value="072 123 4567" />
-          <label>Country</label>
-          <select id="country">
-            <option value="">Select…</option>
-            <option value="ZA" selected>South Africa</option>
-            <option value="NG">Nigeria</option>
-            <option value="KE">Kenya</option>
-            <option value="GH">Ghana</option>
-          </select>
-          <div class="space"></div>
-          <label><input type="checkbox" id="twofa" checked /> Enable 2‑factor authentication</label>
-          <div class="space"></div>
-          <button class="btn" onclick="saveProfile()">Save Changes</button>
-        </div>
-        <div class="card">
-          <h3>Business Information</h3>
-          <label>Business Name</label>
-          <input id="businessName" placeholder="Business name" value="Lungile's Spaza Shop" />
-          <label>Business Type</label>
-          <select id="businessType">
-            <option value="">Select…</option>
-            <option value="retail" selected>Retail</option>
-            <option value="services">Services</option>
-            <option value="agriculture">Agriculture</option>
-            <option value="manufacturing">Manufacturing</option>
-          </select>
-          <label>Business Address</label>
-          <textarea id="businessAddress" placeholder="Business address">123 Main St, Soweto, Johannesburg</textarea>
-          <label>Tax ID</label>
-          <input id="taxId" placeholder="Tax identification number" value="1234567890" />
-          <div class="space"></div>
-          <h3>Branding</h3>
-          <p class="muted">App colors are applied from your brand brief.</p>
-          <div class="row" style="gap:14px">
-            <div class="card" style="background:var(--primary); color:var(--secondary);">Primary<br/><small>rgb(235,184,183)</small></div>
-            <div class="card" style="background:var(--secondary); color:#fff">Secondary<br/><small>rgb(42,67,108)</small></div>
-            <div class="card" style="background:var(--accent); color:#fff">Accent<br/><small>rgb(42,68,110)</small></div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="space"></div>
-      
-      <div class="card">
-        <h3>Login Security</h3>
-        <div class="grid two">
-          <div>
-            <h4>Active Sessions</h4>
-            <ul>
-              <li>Chrome on Windows (This device) <button class="btn small ghost">Log out</button></li>
-              <li>Safari on iPhone <button class="btn small ghost">Log out</button></li>
+            <h4 class="mb-2">Executive & Specialist Roles</h4>
+            <ul class="text-muted">
+              <li class="mb-1">Service Manager - Office of the Executive Chairperson (3 year contract)</li>
+              <li class="mb-1">Executive Assistant - Office of the Executive Chairperson (5 year contract)</li>
+              <li class="mb-1">Specialist Parliamentary Union & President (3 year contract)</li>
+              <li class="mb-1">Specialist Member Ushers (5 year contract)</li>
+              <li class="mb-1">Specialist Researcher (3 year contract)</li>
+              <li class="mb-1">Manager Economic Development (3 year contract)</li>
+              <li class="mb-1">Specialist Investments and Partnerships (3 year contract)</li>
+              <li class="mb-1">Specialist Communications (3 year contract)</li>
             </ul>
           </div>
+          
           <div>
-            <h4>Security Settings</h4>
-            <label><input type="checkbox" checked /> Email notifications</label>
-            <label><input type="checkbox" checked /> SMS notifications</label>
-            <label><input type="checkbox" /> Push notifications</label>
-            <div class="space"></div>
-            <button class="btn">Update Security</button>
+            <h4 class="mb-2">Internship Programme</h4>
+            <p class="text-muted mb-2"><strong>Department of Women, Youth and Persons with Disabilities</strong> (24 Months)</p>
+            <ul class="text-muted">
+              <li class="mb-1">Intern: Advocacy and Mainstreaming, Rights of Persons with Disabilities</li>
+              <li class="mb-1">Intern: International Relations, Stakeholder Management</li>
+              <li class="mb-1">Intern: Social Empowerment of Women (R7,860 monthly)</li>
+            </ul>
+            <p class="text-muted"><strong>Closing Date:</strong> 29 September 2025</p>
           </div>
+        </div>
+        
+        <div class="space"></div>
+        <button class="btn btn-primary">Apply via NYDA Portal</button>
+      </div>
+      
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Post a Job</h3>
+            <p class="card-subtitle">Are you hiring? Post your opportunity to our platform</p>
+          </div>
+          <div class="space"></div>
+          <button class="btn btn-primary">Post a Job</button>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Career Resources</h3>
+            <p class="card-subtitle">Resume templates, interview tips, and career guidance</p>
+          </div>
+          <div class="space"></div>
+          <button class="btn btn-outline" style="color: var(--secondary); border-color: var(--border);">Explore Resources</button>
         </div>
       </div>
     </section>
 
+    <!-- Funding Page -->
+    <section id="funding" class="page">
+      <div class="section-header">
+        <h2 class="section-title">Funding Opportunities</h2>
+        <p class="section-subtitle">Access grants, loans, and investor opportunities</p>
+      </div>
+      
+      <div class="grid grid-3 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">NYDA Grant</h3>
+            <p class="card-subtitle">Up to R50,000 for youth‑owned startups</p>
+          </div>
+          <p class="text-muted mb-3">Prepare a business plan and ID to apply for this grant opportunity.</p>
+          <div class="tag tag-success mb-3">Deadline: 30 June 2025</div>
+          <button class="btn btn-primary btn-small">Start Application</button>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">SEDA Support</h3>
+            <p class="card-subtitle">Mentorship and market access for SMEs</p>
+          </div>
+          <p class="text-muted mb-3">Mentorship, market access and training for SMEs nationwide.</p>
+          <div class="tag tag-info mb-3">Ongoing</div>
+          <button class="btn btn-primary btn-small">Request Support</button>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Skills Funding</h3>
+            <p class="card-subtitle">Learnerships for staff development</p>
+          </div>
+          <p class="text-muted mb-3">Learnerships for staff development (12–24 months).</p>
+          <div class="tag tag-warning mb-3">Next intake: July 2025</div>
+          <button class="btn btn-primary btn-small">See Programs</button>
+        </div>
+      </div>
+      
+      <div class="grid grid-3 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">#PachiPandaChallenge <span class="tag tag-success">Green Tech</span></h3>
+            <p class="card-subtitle">For innovative green tech solutions</p>
+          </div>
+          <p class="text-muted mb-3">For young South Africans (18-35) with innovative green tech solutions in water conservation, sustainable agriculture, energy solutions, waste management & recycling.</p>
+          <button class="btn btn-primary btn-small">Apply Now</button>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">DESP Funding <span class="tag tag-info">Creative Arts</span></h3>
+            <p class="card-subtitle">Funding for young creatives</p>
+          </div>
+          <p class="text-muted mb-3">Funding opportunity for young creatives in arts and culture.</p>
+          <p class="text-muted"><strong>Opening:</strong> 16 September 2025</p>
+          <p class="text-muted mb-3"><strong>Closing:</strong> 09 October 2025</p>
+          <button class="btn btn-primary btn-small">Apply Now</button>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">YANDA Program <span class="tag tag-warning">Nkangala District</span></h3>
+            <p class="card-subtitle">Fully funded entrepreneurship program</p>
+          </div>
+          <p class="text-muted mb-3">Fully funded entrepreneurship program for SMMEs in Nkangala District with training, funding access, business registration, and design support.</p>
+          <button class="btn btn-primary btn-small">Learn More</button>
+        </div>
+      </div>
+      
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Application Progress</h3>
+            <p class="card-subtitle">Track your funding applications</p>
+          </div>
+          
+          <div class="card">
+            <h4 class="mb-1">NYDA Grant Application</h4>
+            <div class="progress">
+              <div class="progress-bar" style="width: 40%"></div>
+            </div>
+            <p class="text-muted mb-0">Documents submitted - under review</p>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Funding Resources</h3>
+            <p class="card-subtitle">Tools to help with your applications</p>
+          </div>
+          
+          <ul class="text-muted">
+            <li class="mb-1">Business Plan Template</li>
+            <li class="mb-1">Budget Worksheet</li>
+            <li class="mb-1">Grant Writing Guide</li>
+            <li class="mb-1">Pitch Deck Examples</li>
+          </ul>
+          
+          <div class="space"></div>
+          <button class="btn btn-outline" style="color: var(--secondary); border-color: var(--border);">Download Resources</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Payments Page -->
+    <section id="payments" class="page">
+      <div class="section-header">
+        <h2 class="section-title">Payments</h2>
+        <p class="section-subtitle">Send, receive, and manage your money securely</p>
+      </div>
+      
+      <div class="card text-center">
+        <div class="card-header">
+          <h3 class="card-title">Payment Features Coming Soon</h3>
+          <p class="card-subtitle">We're building a seamless payment experience for you</p>
+        </div>
+        <p class="text-muted mb-3">Our payment system will include QR codes, USSD functionality, biometric authentication, and integration with major banks.</p>
+        <button class="btn btn-primary">Learn More</button>
+      </div>
+    </section>
+    
+    <!-- Profile Page -->
+    <section id="profile" class="page">
+      <!-- Login/Signup Section (shown when not logged in) -->
+      <div id="authSection" class="auth-container">
+        <div class="card">
+          <div class="card-header text-center">
+            <h3 class="card-title" id="authTitle">Login to Your Account</h3>
+            <p class="card-subtitle" id="authSubtitle">Access your personalized dashboard</p>
+          </div>
+          
+          <form id="authForm">
+            <div class="form-group" id="nameGroup" style="display: none;">
+              <label class="form-label" for="fullName">Full Name</label>
+              <input type="text" class="form-control" id="fullName" placeholder="Enter your full name">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="password">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Enter your password">
+            </div>
+            
+            <div class="form-group" id="confirmPasswordGroup" style="display: none;">
+              <label class="form-label" for="confirmPassword">Confirm Password</label>
+              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
+            </div>
+            
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block" id="authSubmit">Login</button>
+            </div>
+          </form>
+          
+          <div class="auth-switch">
+            <p class="text-muted" id="authSwitchText">Don't have an account? <a href="#" class="auth-link" id="authSwitchLink">Sign up</a></p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Profile Management Section (shown when logged in) -->
+      <div id="profileSection" style="display: none;">
+        <div class="section-header">
+          <h2 class="section-title">My Profile</h2>
+          <p class="section-subtitle">Manage your personal and professional information</p>
+        </div>
+        
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Personal Information</h3>
+              <p class="card-subtitle">Update your basic details</p>
+            </div>
+            
+            <form id="profileForm">
+              <div class="form-group">
+                <label class="form-label" for="profileName">Full Name</label>
+                <input type="text" class="form-control" id="profileName" value="Lungile Mbeki">
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="profileEmail">Email Address</label>
+                <input type="email" class="form-control" id="profileEmail" value="lungile@example.com">
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="profilePhone">Phone Number</label>
+                <input type="tel" class="form-control" id="profilePhone" value="072 123 4567">
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="profileLocation">Location</label>
+                <select class="form-select" id="profileLocation">
+                  <option value="gauteng" selected>Gauteng</option>
+                  <option value="kzn">KwaZulu-Natal</option>
+                  <option value="western-cape">Western Cape</option>
+                  <option value="eastern-cape">Eastern Cape</option>
+                  <option value="limpopo">Limpopo</option>
+                  <option value="mpumalanga">Mpumalanga</option>
+                  <option value="north-west">North West</option>
+                  <option value="free-state">Free State</option>
+                  <option value="northern-cape">Northern Cape</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+          
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Professional Information</h3>
+              <p class="card-subtitle">Tell us about your skills and interests</p>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="profileSkills">Skills & Expertise</label>
+              <select class="form-select" id="profileSkills" multiple>
+                <option value="excel" selected>Excel Automation</option>
+                <option value="video-editing" selected>Video Editing</option>
+                <option value="electrical">Electrical Work</option>
+                <option value="retail">Retail Management</option>
+                <option value="agriculture">Agriculture</option>
+                <option value="bookkeeping">Bookkeeping</option>
+                <option value="it-support">IT Support</option>
+                <option value="programming">Programming</option>
+              </select>
+              <small class="text-muted">Hold Ctrl/Cmd to select multiple skills</small>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="profileInterests">Career Interests</label>
+              <select class="form-select" id="profileInterests">
+                <option value="full-time" selected>Full-time Employment</option>
+                <option value="part-time">Part-time Work</option>
+                <option value="freelance">Freelance/Contract Work</option>
+                <option value="entrepreneurship">Starting a Business</option>
+                <option value="skills-development">Skills Development</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="profileBio">Bio/Introduction</label>
+              <textarea class="form-control form-textarea" id="profileBio" placeholder="Tell us about yourself, your experience, and your goals...">I'm passionate about technology and entrepreneurship. Currently learning Excel automation to start a freelance business helping companies streamline their processes.</textarea>
+            </div>
+            
+            <div class="form-group">
+              <button type="button" class="btn btn-primary">Update Professional Info</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card mt-4">
+          <div class="card-header">
+            <h3 class="card-title">Account Security</h3>
+            <p class="card-subtitle">Manage your password and security settings</p>
+          </div>
+          
+          <div class="grid grid-2">
+            <div>
+              <div class="form-group">
+                <label class="form-label" for="currentPassword">Current Password</label>
+                <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="newPassword">New Password</label>
+                <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+              </div>
+              
+              <div class="form-group">
+                <label class="form-label" for="confirmNewPassword">Confirm New Password</label>
+                <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirm new password">
+              </div>
+              
+              <button type="button" class="btn btn-primary">Update Password</button>
+            </div>
+            
+            <div>
+              <h4 class="mb-2">Security Settings</h4>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="twoFactor" checked>
+                <label class="form-label mb-0" for="twoFactor">Enable Two-Factor Authentication</label>
+              </div>
+              
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="emailNotifications" checked>
+                <label class="form-label mb-0" for="emailNotifications">Email Notifications</label>
+              </div>
+              
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="smsNotifications">
+                <label class="form-label mb-0" for="smsNotifications">SMS Notifications</label>
+              </div>
+              
+              <div class="space"></div>
+              <button type="button" class="btn btn-outline" style="color: var(--secondary); border-color: var(--border);">Save Security Settings</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card mt-4 text-center">
+          <div class="card-header">
+            <h3 class="card-title">Account Actions</h3>
+            <p class="card-subtitle">Manage your account</p>
+          </div>
+          <button type="button" class="btn btn-secondary" id="logoutBtn">Sign Out</button>
+          <button type="button" class="btn btn-outline" style="color: var(--danger); border-color: var(--danger); margin-left: 12px;">Delete Account</button>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Payment Modal -->
-  <div id="paymentModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 id="paymentModalTitle">Send Payment</h2>
-        <button class="modal-close" onclick="closeModal('paymentModal')">&times;</button>
-      </div>
-      <div id="paymentModalContent">
-        <p>Processing your payment...</p>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <div style="display: inline-flex; align-items: center; gap: 10px; color: white;">
+            <div style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: var(--primary); color: white; border-radius: 6px; font-weight: 700;">EH</div>
+            <span style="font-weight: 700; font-size: 1.2rem;">EMPOWA HUB</span>
+          </div>
+        </div>
+        <p class="footer-text">Transforming township economies through technology and innovation</p>
+        <p class="footer-copyright">© 2025 EMPOWA HUB. All rights reserved.</p>
       </div>
     </div>
-  </div>
-
-  <footer class="wrap">
-    <p>EMPOWA HUB — All-in-one platform for township entrepreneurs</p>
-    <p>© 2025 Al-azmeh. All rights reserved.</p>
   </footer>
 
   <script>
-    // Initialize the navigation system
-    function initNavigation() {
-      // Set up tab click handlers
-      const tabs = document.querySelectorAll('.tab');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetPage = tab.getAttribute('data-target');
-          if (targetPage) {
-            showPage(targetPage);
-          }
-        });
-      });
-      
-      // Set up button click handlers
-      const buttons = document.querySelectorAll('.btn[data-target]');
-      buttons.forEach(button => {
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetPage = button.getAttribute('data-target');
-          if (targetPage) {
-            showPage(targetPage);
-          }
-        });
-      });
-      
-      // Close mobile menu when a link is clicked
-      const navLinks = document.querySelectorAll('nav .tab');
-      navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          document.getElementById('mainNav').classList.remove('active');
-        });
-      });
-    }
+    // User authentication state
+    let isLoggedIn = false;
+    let isSignupMode = false;
+
+    // Mobile menu toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      document.getElementById('navLinks').classList.toggle('active');
+    });
     
-    // Function to show a specific page
-    function showPage(pageId) {
-      // Hide all pages
-      const pages = document.querySelectorAll('.page');
-      pages.forEach(page => {
-        page.classList.remove('active');
-      });
-      
-      // Show the requested page
-      const targetPage = document.getElementById(pageId);
-      if (targetPage) {
-        targetPage.classList.add('active');
-      }
-      
-      // Update active tab indicator
-      const tabs = document.querySelectorAll('.tab');
-      tabs.forEach(tab => {
-        if (tab.getAttribute('data-target') === pageId) {
-          tab.setAttribute('aria-current', 'page');
-        } else {
-          tab.removeAttribute('aria-current');
+    // Page navigation
+    document.querySelectorAll('.nav-link, .btn[data-target]').forEach(element => {
+      element.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetPage = this.getAttribute('data-target');
+        
+        if (targetPage) {
+          // Hide all pages
+          document.querySelectorAll('.page').forEach(page => {
+            page.classList.remove('active');
+          });
+          
+          // Show target page
+          document.getElementById(targetPage).classList.add('active');
+          
+          // Update active nav link
+          document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+          });
+          this.classList.add('active');
+          
+          // Close mobile menu if open
+          document.getElementById('navLinks').classList.remove('active');
+          
+          // Scroll to top
+          window.scrollTo(0, 0);
         }
       });
+    });
+
+    // Auth mode toggle
+    document.getElementById('authSwitchLink').addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleAuthMode();
+    });
+
+    function toggleAuthMode() {
+      isSignupMode = !isSignupMode;
       
-      // Scroll to top
-      window.scrollTo(0, 0);
-    }
-    
-    // Toggle mobile menu
-    function toggleMobileMenu() {
-      const nav = document.getElementById('mainNav');
-      nav.classList.toggle('active');
-    }
-    
-    // Modal functions
-    function showModal(modalId, title, content) {
-      document.getElementById('paymentModalTitle').textContent = title;
-      document.getElementById('paymentModalContent').innerHTML = content;
-      document.getElementById(modalId).classList.add('active');
+      if (isSignupMode) {
+        document.getElementById('authTitle').textContent = 'Create Your Account';
+        document.getElementById('authSubtitle').textContent = 'Join EMPOWA HUB to access opportunities';
+        document.getElementById('nameGroup').style.display = 'block';
+        document.getElementById('confirmPasswordGroup').style.display = 'block';
+        document.getElementById('authSubmit').textContent = 'Sign Up';
+        document.getElementById('authSwitchText').innerHTML = 'Already have an account? <a href="#" class="auth-link" id="authSwitchLink">Login</a>';
+      } else {
+        document.getElementById('authTitle').textContent = 'Login to Your Account';
+        document.getElementById('authSubtitle').textContent = 'Access your personalized dashboard';
+        document.getElementById('nameGroup').style.display = 'none';
+        document.getElementById('confirmPasswordGroup').style.display = 'none';
+        document.getElementById('authSubmit').textContent = 'Login';
+        document.getElementById('authSwitchText').innerHTML = 'Don\'t have an account? <a href="#" class="auth-link" id="authSwitchLink">Sign up</a>';
+      }
+      
+      // Re-attach event listener to the new link
+      document.getElementById('authSwitchLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        toggleAuthMode();
+      });
     }
 
-    function closeModal(modalId) {
-      document.getElementById(modalId).classList.remove('active');
-    }
-    
-    // Payment function
-    function sendMoney() {
-      showModal('paymentModal', 'Send Money', `
-        <div class="muted">Send money securely</div>
-        <div class="space"></div>
-        <label>Recipient Phone Number</label>
-        <input id="recipient" placeholder="e.g. 27721234567" value="27721234567" />
-        <small class="muted">Format: 2772XXXXXXX (MTN South Africa)</small>
-        <label>Amount (R)</label>
-        <input id="amount" type="number" placeholder="0.00" value="10" />
-        <label>Reference</label>
-        <input id="ref" placeholder="e.g. Payment for goods" value="Test payment" />
-        <div class="space"></div>
-        <button class="btn" onclick="processPayment()">Send Payment</button>
-      `);
-    }
-    
-    // Process payment
-    async function processPayment() {
-      const recipient = document.getElementById('recipient').value;
-      const amount = document.getElementById('amount').value;
-      const reference = document.getElementById('ref').value;
+    // Auth form submission
+    document.getElementById('authForm').addEventListener('submit', function(e) {
+      e.preventDefault();
       
-      if (!recipient || !amount) {
-        alert('Please enter recipient and amount');
-        return;
-      }
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
       
-      // Show processing state
-      document.getElementById('paymentModalContent').innerHTML = `
-        <div style="text-align:center">
-          <div class="spinner"></div>
-          <p>Processing payment of R${amount} to ${recipient}...</p>
-        </div>
-      `;
-      
-      try {
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 2000));
+      if (isSignupMode) {
+        const name = document.getElementById('fullName').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
         
-        // Simulate successful payment
-        document.getElementById('paymentModalContent').innerHTML = `
-          <div style="text-align:center">
-            <div style="font-size:48px; color:var(--success)">✅</div>
-            <p>Payment of R${amount} to ${recipient} was successful!</p>
-            <p>Reference: ${reference || 'No reference provided'}</p>
-            <div class="space"></div>
-            <button class="btn" onclick="closeModal('paymentModal')">Done</button>
-          </div>
-        `;
-        
-      } catch (error) {
-        document.getElementById('paymentModalContent').innerHTML = `
-          <div style="text-align:center">
-            <div style="font-size:48px; color:var(--danger)">❌</div>
-            <p>Payment failed: ${error.message}</p>
-            <div class="space"></div>
-            <button class="btn" onclick="sendMoney()">Try Again</button>
-            <button class="btn ghost" onclick="closeModal('paymentModal')">Cancel</button>
-          </div>
-        `;
-      }
-    }
-    
-    // Biometric functions
-    function startFP() {
-      const bar = document.getElementById('fpprog');
-      let p = 0;
-      bar.style.width = '0%';
-      
-      const timer = setInterval(() => {
-        p += 5;
-        bar.style.width = p + '%';
-        if (p >= 100) {
-          clearInterval(timer);
-          document.getElementById('fpsensor').innerHTML = '✅';
-          alert('Fingerprint registered successfully!');
+        if (password !== confirmPassword) {
+          alert('Passwords do not match!');
+          return;
         }
-      }, 100);
-    }
-    
-    function toggleCam() {
-      const btn = document.getElementById('camBtn');
-      if (btn.textContent === 'Start Camera') {
-        btn.textContent = 'Stop Camera';
-        document.getElementById('video').innerHTML = '<div style="color:white; text-align:center; padding:40px">Camera feed would appear here</div>';
+        
+        // Simulate signup
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userPassword', password);
+        alert('Account created successfully! You can now login.');
+        toggleAuthMode();
       } else {
-        btn.textContent = 'Start Camera';
-        document.getElementById('video').innerHTML = '📷';
+        // Simulate login
+        const storedEmail = localStorage.getItem('userEmail');
+        const storedPassword = localStorage.getItem('userPassword');
+        
+        if (email === storedEmail && password === storedPassword) {
+          isLoggedIn = true;
+          updateUIForLogin();
+          alert('Login successful!');
+        } else {
+          alert('Invalid email or password!');
+        }
+      }
+    });
+
+    // Profile form submission
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('profileName').value;
+      const email = document.getElementById('profileEmail').value;
+      const phone = document.getElementById('profilePhone').value;
+      
+      // Update stored user data
+      localStorage.setItem('userName', name);
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userPhone', phone);
+      
+      alert('Profile updated successfully!');
+    });
+
+    // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+      isLoggedIn = false;
+      updateUIForLogin();
+      alert('You have been logged out.');
+    });
+
+    // Update UI based on login state
+    function updateUIForLogin() {
+      if (isLoggedIn) {
+        document.getElementById('authSection').style.display = 'none';
+        document.getElementById('profileSection').style.display = 'block';
+        document.getElementById('loginBtn').textContent = 'My Profile';
+        
+        // Load user data
+        const userName = localStorage.getItem('userName') || 'Lungile Mbeki';
+        const userEmail = localStorage.getItem('userEmail') || 'lungile@example.com';
+        const userPhone = localStorage.getItem('userPhone') || '072 123 4567';
+        
+        document.getElementById('profileName').value = userName;
+        document.getElementById('profileEmail').value = userEmail;
+        document.getElementById('profilePhone').value = userPhone;
+      } else {
+        document.getElementById('authSection').style.display = 'block';
+        document.getElementById('profileSection').style.display = 'none';
+        document.getElementById('loginBtn').textContent = 'Login';
       }
     }
-    
-    function completeFace() {
-      alert('Face registration completed successfully!');
-    }
-    
-    // Wallet functions
-    function verifyBank() {
-      const bank = document.getElementById('bank').value;
-      const acct = document.getElementById('acct').value;
-      
-      if (!bank || !acct) {
-        alert('Please select a bank and enter account number');
-        return;
-      }
-      
-      document.getElementById('acctname').value = 'Lungile Mbeki';
-      alert('Bank account verified successfully!');
-    }
-    
-    function linkWallet() {
-      const wtype = document.getElementById('wtype').value;
-      const waddr = document.getElementById('waddr').value;
-      
-      if (!wtype || !waddr) {
-        alert('Please select wallet type and enter address');
-        return;
-      }
-      
-      alert(`${wtype} wallet linked successfully!`);
-    }
-    
-    // USSD functions
-    function linkUSSD() {
-      const msisdn = document.getElementById('msisdn').value;
-      const mno = document.getElementById('mno').value;
-      
-      if (!msisdn) {
-        alert('Please enter mobile number');
-        return;
-      }
-      
-      alert(`USSD services activated for ${msisdn} (${mno})!`);
-    }
-    
-    // Profile functions
-    function saveProfile() {
-      alert('Profile saved successfully!');
-    }
-    
-    // Other payment functions
-    function requestMoney() {
-      alert("Request money functionality would open here");
-    }
-    
-    function payBill() {
-      alert("Pay bill functionality would open here");
-    }
-    
-    function downloadQR() {
-      alert("QR code download functionality would open here");
-    }
-    
-    // Initialize the app when the DOM is loaded
+
+    // Initialize the app
     document.addEventListener('DOMContentLoaded', function() {
-      initNavigation();
-      console.log('EMPOWA HUB with all pages initialized');
+      updateUIForLogin();
+      
+      // Check if user is already logged in (for demo purposes)
+      const storedEmail = localStorage.getItem('userEmail');
+      if (storedEmail) {
+        isLoggedIn = true;
+        updateUIForLogin();
+      }
     });
   </script>
 </body>
